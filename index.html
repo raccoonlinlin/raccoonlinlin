@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RACCOONLINLIN｜浣熊琳琳 - 官方互動網站</title>
   
-  <!-- 外部資源載入 -->
+  <!-- 外部資源 -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -32,17 +32,21 @@
 
     /* 玻璃擬態 */
     .glass-effect {
-      background: rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
     }
 
-    /* 互動大字字母 */
+    /* 字母基礎樣式：確保初始化時位置穩定 */
     .letter {
       display: inline-block;
+      position: relative;
       cursor: default;
       user-select: none;
+      white-space: pre;
+      will-change: transform, color;
+      transform-origin: center bottom;
     }
 
     /* 自定義游標 */
@@ -66,20 +70,35 @@
     }
 
     .mask-gradient {
-      mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%);
-      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 30%);
+      mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 50%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 50%);
     }
 
     .shop-card:hover img {
       transform: scale(1.1);
     }
 
-    .social-icon-box {
+    .social-hub-box {
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
-    .social-icon-box:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1);
+    .social-hub-box:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+    }
+
+    .event-card {
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .event-card:hover {
+      transform: translateY(-8px) scale(1.02);
+    }
+    
+    /* 防止文字容器在生成前塌陷 */
+    .text-container-placeholder {
+      min-height: 1.2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   </style>
 <script type="importmap">
@@ -97,251 +116,188 @@
   <!-- 自定義游標 -->
   <div id="custom-cursor"></div>
 
-  <!-- 導航欄 -->
-  <nav class="fixed top-0 left-0 w-full z-50 glass-effect px-6 py-4 flex justify-between items-center border-b border-white/20">
-    <div class="text-xl font-bold tracking-wider" style="color: var(--primary)">RACCOONLINLIN</div>
+  <!-- 導航欄 (固定頂部) -->
+  <nav class="fixed top-0 left-0 w-full z-[100] glass-effect px-6 py-4 flex justify-between items-center border-b border-white/30">
+    <div id="nav-logo" class="flex gap-[1px] text-lg font-black tracking-widest cursor-default text-container-placeholder">
+      <!-- JS 生成: RACCOONLINLIN -->
+    </div>
     <div id="season-badge" class="px-4 py-1.5 rounded-full text-white text-[10px] font-black uppercase tracking-widest shadow-lg">SEASON</div>
   </nav>
 
   <!-- Hero Section -->
-  <header class="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+  <header class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-40 pb-20">
     <!-- 漂浮裝飾物 -->
-    <div id="hero-deco" class="absolute inset-0 pointer-events-none opacity-30">
+    <div id="hero-deco" class="absolute inset-0 pointer-events-none opacity-25">
       <div class="absolute text-5xl" style="top: 20%; left: 10%">🎨</div>
       <div class="absolute text-6xl" style="bottom: 25%; right: 12%">🧶</div>
-      <div class="absolute text-4xl" style="top: 35%; right: 18%">✨</div>
+      <div class="absolute text-4xl" style="top: 35%; right: 20%">✨</div>
       <div class="absolute text-5xl" style="bottom: 15%; left: 15%">🦊</div>
     </div>
 
-    <div class="relative z-10 text-center px-4 max-w-4xl flex flex-col items-center">
-      <!-- 第一排：縮小互動英文名 -->
-      <div id="title-en" class="flex flex-nowrap justify-center gap-[2px] mb-2 overflow-visible">
-        <!-- 由 JS 生成 -->
+    <div class="relative z-10 text-center px-4 max-w-5xl flex flex-col items-center">
+      <!-- 第一排：互動英文名 -->
+      <div id="title-en" class="flex flex-nowrap justify-center gap-[4px] mb-8 overflow-visible text-container-placeholder">
+        <!-- JS 生成: RACCOONLINLIN -->
       </div>
 
       <!-- 第二排：中文互動大字 -->
-      <h1 id="title-zh" class="text-[10vw] md:text-[8vw] font-black italic mb-8" style="color: var(--primary); text-shadow: 0 10px 40px rgba(0,0,0,0.1);">
-        浣熊琳琳
-      </h1>
+      <div id="title-zh-container" class="flex justify-center gap-2 mb-10 overflow-visible text-container-placeholder" 
+           style="transform: skew(-3deg); text-shadow: 0 15px 45px rgba(0,0,0,0.06);">
+        <!-- JS 生成: 浣熊琳琳 -->
+      </div>
 
-      <p class="text-gray-500 text-lg md:text-xl max-w-2xl mb-16 font-medium leading-relaxed">
-        用指尖的溫度紀錄日常。在這裡，你會發現色彩不只是顏料，更是能治癒生活的溫暖魔法。
+      <p class="text-gray-500 text-lg md:text-xl max-w-2xl mb-16 font-medium leading-relaxed tracking-wide">
+        每一種顏色都是一種情緒，每一件手作都是一段故事。<br class="hidden md:block">在琳琳的插畫世界裡，我們用指尖的溫度紀錄每一天的美好。
       </p>
 
-      <!-- 絕對置中按鈕組 -->
       <div class="flex flex-col items-center gap-14">
         <button onclick="document.getElementById('shop').scrollIntoView()" class="group relative px-16 py-6 bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl transition-all hover:scale-105 active:scale-95">
-          <span class="relative z-10 text-white font-bold text-lg tracking-widest">前往探索</span>
+          <span class="relative z-10 text-white font-bold text-lg tracking-[0.2em]">探索作品</span>
           <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
                style="background: linear-gradient(45deg, var(--primary), var(--secondary))"></div>
         </button>
 
         <div class="flex flex-col items-center gap-5">
-          <span class="text-[10px] font-black tracking-[0.6em] text-gray-400 uppercase">SCROLL TO SHOP</span>
-          <div class="w-[2px] h-20 bg-gray-200 relative overflow-hidden rounded-full">
+          <span class="text-[10px] font-black tracking-[0.6em] text-gray-300 uppercase">SCROLL TO SHOP</span>
+          <div class="w-[2px] h-16 bg-gray-200 relative overflow-hidden rounded-full">
             <div id="scroll-fill" class="absolute top-0 left-0 w-full h-1/2" style="background: var(--primary)"></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- 底部插畫 -->
-    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-6xl opacity-[0.08] pointer-events-none z-0 mask-gradient">
-      <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=1000" class="w-full grayscale brightness-110">
+    <!-- 底部插畫裝飾 -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-7xl opacity-[0.06] pointer-events-none z-0 mask-gradient">
+      <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=1200" class="w-full grayscale brightness-110">
     </div>
   </header>
 
-  <!-- 商品展示區 (6個欄位) -->
+  <!-- 精選作品區 (6個欄位) -->
   <section id="shop" class="py-32 px-6 max-w-7xl mx-auto">
-    <div class="text-center mb-20">
-      <h2 class="text-4xl font-black mb-4 tracking-tight">精選文創作品</h2>
-      <p class="text-gray-500">從插畫到手作，每一件作品都承載著創作的初心。</p>
-      <div class="h-1.5 w-24 mx-auto rounded-full mt-6" style="background: var(--primary)"></div>
+    <div class="text-center mb-24">
+      <h2 class="text-4xl font-black mb-4 tracking-tight text-gray-900">精選文創作品</h2>
+      <p class="text-gray-400 font-medium tracking-widest uppercase text-xs">Handcrafted Magic & Illustrations</p>
+      <div class="h-1.5 w-24 mx-auto rounded-full mt-8" style="background: var(--primary)"></div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- 商品 1 -->
-      <div class="glass-effect rounded-[3rem] overflow-hidden shop-card group transition-all">
-        <div class="aspect-square overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1579541814924-49fef17c5be5?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700">
-          <span class="absolute top-6 left-6 px-4 py-1 rounded-full text-[10px] font-black text-white shadow-lg" style="background: var(--primary)">插畫紙品</span>
-        </div>
-        <div class="p-10">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-black">手繪明信片套組</h3>
-            <span class="font-bold text-sm" style="color: var(--primary)">$ 150</span>
-          </div>
-          <a href="https://www.pinkoi.com" target="_blank" class="block w-full py-5 rounded-2xl text-center font-bold text-white transition-all shadow-xl hover:scale-[1.02]" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">前往商店</a>
-        </div>
-      </div>
-      <!-- 商品 2 -->
-      <div class="glass-effect rounded-[3rem] overflow-hidden shop-card group transition-all">
-        <div class="aspect-square overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1608501821300-4f99e58baf77?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700">
-          <span class="absolute top-6 left-6 px-4 py-1 rounded-full text-[10px] font-black text-white shadow-lg" style="background: var(--primary)">編織工藝</span>
-        </div>
-        <div class="p-10">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-black">暖冬雲朵編織包</h3>
-            <span class="font-bold text-sm" style="color: var(--primary)">$ 880</span>
-          </div>
-          <a href="https://www.pinkoi.com" target="_blank" class="block w-full py-5 rounded-2xl text-center font-bold text-white transition-all shadow-xl hover:scale-[1.02]" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">前往商店</a>
-        </div>
-      </div>
-      <!-- 商品 3 -->
-      <div class="glass-effect rounded-[3rem] overflow-hidden shop-card group transition-all">
-        <div class="aspect-square overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1590859427610-6927958992c9?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700">
-          <span class="absolute top-6 left-6 px-4 py-1 rounded-full text-[10px] font-black text-white shadow-lg" style="background: var(--primary)">角色周邊</span>
-        </div>
-        <div class="p-10">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-black">小浣熊壓克力吊飾</h3>
-            <span class="font-bold text-sm" style="color: var(--primary)">$ 190</span>
-          </div>
-          <a href="https://www.pinkoi.com" target="_blank" class="block w-full py-5 rounded-2xl text-center font-bold text-white transition-all shadow-xl hover:scale-[1.02]" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">前往商店</a>
-        </div>
-      </div>
-      <!-- 商品 4 -->
-      <div class="glass-effect rounded-[3rem] overflow-hidden shop-card group transition-all">
-        <div class="aspect-square overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700">
-          <span class="absolute top-6 left-6 px-4 py-1 rounded-full text-[10px] font-black text-white shadow-lg" style="background: var(--primary)">手帳文具</span>
-        </div>
-        <div class="p-10">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-black">夢幻水彩紙膠帶</h3>
-            <span class="font-bold text-sm" style="color: var(--primary)">$ 220</span>
-          </div>
-          <a href="https://www.pinkoi.com" target="_blank" class="block w-full py-5 rounded-2xl text-center font-bold text-white transition-all shadow-xl hover:scale-[1.02]" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">前往商店</a>
-        </div>
-      </div>
-      <!-- 商品 5 -->
-      <div class="glass-effect rounded-[3rem] overflow-hidden shop-card group transition-all">
-        <div class="aspect-square overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700">
-          <span class="absolute top-6 left-6 px-4 py-1 rounded-full text-[10px] font-black text-white shadow-lg" style="background: var(--primary)">家居飾品</span>
-        </div>
-        <div class="p-10">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-black">手繪原木托盤</h3>
-            <span class="font-bold text-sm" style="color: var(--primary)">$ 550</span>
-          </div>
-          <a href="https://www.pinkoi.com" target="_blank" class="block w-full py-5 rounded-2xl text-center font-bold text-white transition-all shadow-xl hover:scale-[1.02]" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">前往商店</a>
-        </div>
-      </div>
-      <!-- 商品 6 -->
-      <div class="glass-effect rounded-[3rem] overflow-hidden shop-card group transition-all">
-        <div class="aspect-square overflow-hidden relative">
-          <img src="https://images.unsplash.com/photo-1544816153-12ad5d7133a2?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-700">
-          <span class="absolute top-6 left-6 px-4 py-1 rounded-full text-[10px] font-black text-white shadow-lg" style="background: var(--primary)">飾品配件</span>
-        </div>
-        <div class="p-10">
-          <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-black">陶土手捏耳環</h3>
-            <span class="font-bold text-sm" style="color: var(--primary)">$ 390</span>
-          </div>
-          <a href="https://www.pinkoi.com" target="_blank" class="block w-full py-5 rounded-2xl text-center font-bold text-white transition-all shadow-xl hover:scale-[1.02]" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">前往商店</a>
-        </div>
-      </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+      <script>
+        const products = [
+          { title: "手繪明信片組", price: "150", tag: "Paper Arts", img: "https://images.unsplash.com/photo-1579541814924-49fef17c5be5" },
+          { title: "暖冬編織包", price: "880", tag: "Knitting", img: "https://images.unsplash.com/photo-1608501821300-4f99e58baf77" },
+          { title: "角色壓克力吊飾", price: "190", tag: "Character", img: "https://images.unsplash.com/photo-1590859427610-6927958992c9" },
+          { title: "手繪紙膠帶", price: "220", tag: "Stationery", img: "https://images.unsplash.com/photo-1589182373726-e4f658ab50f0" },
+          { title: "彩繪原木盤", price: "550", tag: "Decor", img: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38" },
+          { title: "陶土手捏耳環", price: "390", tag: "Accessories", img: "https://images.unsplash.com/photo-1544816153-12ad5d7133a2" }
+        ];
+        
+        products.forEach(p => {
+          document.write(`
+            <div class="glass-effect rounded-[3rem] overflow-hidden shop-card group shadow-sm hover:shadow-2xl transition-all duration-500">
+              <div class="aspect-square overflow-hidden relative">
+                <img src="${p.img}?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover transition-transform duration-1000">
+                <span class="absolute top-8 left-8 px-5 py-1.5 rounded-full text-[10px] font-black text-white shadow-lg uppercase tracking-widest" style="background: var(--primary)">${p.tag}</span>
+              </div>
+              <div class="p-10">
+                <div class="flex justify-between items-center mb-6">
+                  <h3 class="text-2xl font-black text-gray-800">${p.title}</h3>
+                  <span class="font-bold text-sm" style="color: var(--primary)">$ ${p.price}</span>
+                </div>
+                <a href="https://www.pinkoi.com" target="_blank" class="block w-full py-5 rounded-2xl text-center font-bold text-white transition-all shadow-xl hover:scale-[1.03]" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">前往收藏</a>
+              </div>
+            </div>
+          `);
+        });
+      </script>
     </div>
   </section>
 
-  <!-- YouTube 影音區域 -->
-  <section class="py-32 bg-white/40 border-y border-white/20">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col lg:flex-row items-center gap-16">
-        <div class="w-full lg:w-2/3">
+  <!-- 活動公告區 -->
+  <section id="announcements" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/20">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl font-black mb-3 tracking-tight">最新活動公告</h2>
+      <p class="text-gray-400 font-medium tracking-widest uppercase text-[10px]">News & Events</p>
+      <div class="h-1 w-16 mx-auto rounded-full mt-6" style="background: var(--primary)"></div>
+    </div>
+
+    <div id="events-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- 由 JS 動態生成 -->
+    </div>
+  </section>
+
+  <!-- YouTube 影音與社群 Hub -->
+  <section class="py-32 bg-white/50 border-y border-white/20">
+    <div class="max-w-6xl mx-auto px-6 text-center lg:text-left">
+      <div class="flex flex-col lg:flex-row gap-16 items-center mb-32">
+        <div class="w-full lg:w-3/5">
           <div class="relative group">
-            <div class="absolute -inset-2 rounded-[2.5rem] blur opacity-20 transition group-hover:opacity-40" style="background: var(--primary)"></div>
-            <div class="relative aspect-video rounded-3xl overflow-hidden bg-black shadow-2xl">
+            <div class="absolute -inset-3 rounded-[3.5rem] blur opacity-20 transition group-hover:opacity-40" style="background: var(--primary)"></div>
+            <div class="relative aspect-video rounded-[2.5rem] overflow-hidden bg-black shadow-2xl border-4 border-white">
               <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
             </div>
           </div>
         </div>
-        <div class="w-full lg:w-1/3 text-center lg:text-left space-y-8">
-          <h2 class="text-4xl font-black">創作幕後紀實</h2>
-          <p class="text-gray-500 leading-relaxed">在這裡分享插畫與手作的日常，帶你從靈感發現到作品誕生。訂閱頻道，不錯過任何繽紛時刻！</p>
-          <a href="https://youtube.com" target="_blank" class="inline-flex items-center gap-4 px-12 py-5 rounded-2xl text-white font-bold transition-all shadow-xl hover:-translate-y-1" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            立即訂閱頻道
-          </a>
+        <div class="w-full lg:w-2/5 space-y-10">
+          <h2 class="text-5xl font-black text-gray-900">創作幕後</h2>
+          <p class="text-gray-400 leading-relaxed text-lg">每一件作品的誕生都是一段旅程。在 YouTube，我紀錄了插畫的筆觸、手作的細節，以及生活中的碎語。</p>
+          <a href="https://youtube.com" target="_blank" class="inline-flex items-center justify-center gap-4 px-12 py-6 rounded-[2rem] text-white font-bold transition-all shadow-2xl hover:-translate-y-2 active:scale-95" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">訂閱我的頻道</a>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- 社群聯名 Hub (Facebook / IG / Threads / YouTube) -->
-  <section class="py-24 px-6 max-w-5xl mx-auto">
-    <div class="text-center mb-16">
-      <h2 class="text-3xl font-black mb-4">探索數位日常</h2>
-      <p class="text-gray-400 text-sm tracking-widest uppercase font-bold">Follow Our Creative Journey</p>
-    </div>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <!-- IG -->
-      <a href="https://instagram.com" target="_blank" class="social-icon-box glass-effect p-8 rounded-[2.5rem] flex flex-col items-center gap-4 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-pink-50 text-pink-500 group-hover:bg-pink-500 group-hover:text-white transition-colors duration-500">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        </div>
-        <span class="text-xs font-black tracking-widest text-gray-400 group-hover:text-pink-500 transition-colors">INSTAGRAM</span>
-      </a>
-      <!-- FB -->
-      <a href="https://facebook.com" target="_blank" class="social-icon-box glass-effect p-8 rounded-[2.5rem] flex flex-col items-center gap-4 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-blue-50 text-blue-500 group-hover:bg-blue-500 group-hover:text-white transition-colors duration-500">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-        </div>
-        <span class="text-xs font-black tracking-widest text-gray-400 group-hover:text-blue-500 transition-colors">FACEBOOK</span>
-      </a>
-      <!-- Threads -->
-      <a href="https://threads.net" target="_blank" class="social-icon-box glass-effect p-8 rounded-[2.5rem] flex flex-col items-center gap-4 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-gray-50 text-gray-900 group-hover:bg-gray-900 group-hover:text-white transition-colors duration-500">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12.63 10.37a2.53 2.53 0 0 1-.63 0c-.39 0-.74.1-.96.26-.22.17-.34.42-.34.71 0 .28.12.52.34.68.22.16.57.26.96.26.39 0 .74-.1 1.03-.26.29-.16.5-.4.63-.68.13-.28.19-.52.19-.71a.43.43 0 0 0-.19-.26c-.1-.13-.5-.1-.5-.1zm0-3.27c.39 0 .78.07 1.14.22.36.15.68.36.94.62.26.26.47.57.62.94.15.36.22.75.22 1.14 0 .39-.07.78-.22 1.14a3.11 3.11 0 0 1-1.56 1.56 3.11 3.11 0 0 1-1.14.22c-.39 0-.78-.07-1.14-.22a3.11 3.11 0 0 1-1.56-1.56A3.11 3.11 0 0 1 9.75 9c0-.39.07-.78.22-1.14.15-.36.36-.68.62-.94.26-.26.57-.47.94-.62.36-.15.75-.22 1.14-.22zm3.37 5.63c-.15.36-.36.68-.62.94-.26.26-.57.47-.94.62-.36.15-.75.22-1.14.22-.39 0-.78-.07-1.14-.22s-.68-.36-.94-.62-.47-.57-.62-.94A3.11 3.11 0 0 1 9.75 9c0-.39.07-.78.22-1.14.15-.36.36-.68.62-.94s.57-.47.94-.62c.36-.15.75-.22 1.14-.22s.78.07 1.14.22.68.36.94.62.47.57.62.94c.15.36.22.75.22 1.14 0 .39-.07.78-.22 1.14z"/></svg>
-        </div>
-        <span class="text-xs font-black tracking-widest text-gray-400 group-hover:text-gray-900 transition-colors">THREADS</span>
-      </a>
-      <!-- YouTube -->
-      <a href="https://youtube.com" target="_blank" class="social-icon-box glass-effect p-8 rounded-[2.5rem] flex flex-col items-center gap-4 group">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-red-50 text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors duration-500">
-          <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </div>
-        <span class="text-xs font-black tracking-widest text-gray-400 group-hover:text-red-500 transition-colors">YOUTUBE</span>
-      </a>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <script>
+          const socials = [
+            { name: 'Instagram', label: '@raccoonlinlin', link: 'https://instagram.com' },
+            { name: 'Facebook', label: '浣熊琳琳', link: 'https://facebook.com' },
+            { name: 'Threads', label: '絮絮叨叨', link: 'https://threads.net' },
+            { name: 'YouTube', label: '影音紀錄', link: 'https://youtube.com' }
+          ];
+          socials.forEach(s => {
+            document.write(`
+              <a href="${s.link}" target="_blank" class="social-hub-box glass-effect p-10 rounded-[3rem] flex flex-col items-center gap-5 group">
+                <div class="w-16 h-16 rounded-2xl flex items-center justify-center bg-white shadow-inner group-hover:bg-gray-100 transition-all duration-500">
+                  <span class="text-2xl">✨</span>
+                </div>
+                <div class="text-center">
+                  <span class="block text-[10px] font-black tracking-widest text-gray-400 uppercase mb-1">${s.name}</span>
+                  <span class="text-xs font-bold text-gray-500">${s.label}</span>
+                </div>
+              </a>
+            `);
+          });
+        </script>
+      </div>
     </div>
   </section>
 
   <!-- 頁尾 -->
   <footer class="py-16 text-center text-gray-400 text-sm border-t border-white/20 glass-effect">
     <p>&copy; 2024 RACCOONLINLIN. All Rights Reserved.</p>
-    <p class="italic mt-2 text-gray-300">在繽紛的色彩裡，我們相遇。</p>
+    <p class="italic mt-3 text-gray-300">在色彩的包裹下，勇敢做個溫柔的人。</p>
   </footer>
 
   <script>
-    // 1. 季節引擎
+    // 季節與自動換色系統
     const SEASONS = {
-      spring: { name: '春暖花開', primary: '#f472b6', secondary: '#fbcfe8', bg: 'linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%)', particles: ['🌸', '🍃'] },
-      summer: { name: '仲夏之夢', primary: '#38bdf8', secondary: '#bae6fd', bg: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)', particles: ['🫧', '☀️'] },
-      autumn: { name: '秋意濃濃', primary: '#fb923c', secondary: '#ffedd5', bg: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', particles: ['🍁', '🍂'] },
-      winter: { name: '冬日煦陽', primary: '#94a3b8', secondary: '#f1f5f9', bg: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)', particles: ['❄️', '🤍'] }
+      spring: { name: '春暖花開', primary: '#f472b6', bg: 'linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%)', particles: ['🌸', '🍃'] },
+      summer: { name: '仲夏之夢', primary: '#38bdf8', bg: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)', particles: ['🫧', '☀️'] },
+      autumn: { name: '秋意濃濃', primary: '#fb923c', bg: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', particles: ['🍁', '🍂'] },
+      winter: { name: '冬日煦陽', primary: '#94a3b8', bg: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)', particles: ['❄️', '🤍'] }
     };
 
     function initSeason() {
       const month = new Date().getMonth() + 1;
-      let key = 'winter';
-      if (month >= 3 && month <= 5) key = 'spring';
-      else if (month >= 6 && month <= 8) key = 'summer';
-      else if (month >= 9 && month <= 11) key = 'autumn';
-
+      let key = (month >= 3 && month <= 5) ? 'spring' : (month >= 6 && month <= 8) ? 'summer' : (month >= 9 && month <= 11) ? 'autumn' : 'winter';
       const config = SEASONS[key];
+      
       document.documentElement.style.setProperty('--primary', config.primary);
-      document.documentElement.style.setProperty('--secondary', config.secondary);
       document.documentElement.style.setProperty('--bg', config.bg);
-
+      
       const badge = document.getElementById('season-badge');
       badge.innerText = config.name;
       badge.style.backgroundColor = config.primary;
 
-      // 產生季節粒子
+      // 生成掉落物
       for (let i = 0; i < 15; i++) {
         const p = document.createElement('div');
         p.className = 'particle';
@@ -350,66 +306,112 @@
         p.style.top = '-50px';
         p.style.fontSize = (Math.random() * 20 + 20) + 'px';
         document.body.appendChild(p);
-
-        gsap.to(p, {
-          y: '110vh',
-          x: '+=' + (Math.random() * 100 - 50),
-          rotation: 360,
-          duration: Math.random() * 10 + 10,
-          repeat: -1,
-          ease: "none",
-          delay: Math.random() * 15
-        });
+        gsap.to(p, { y: '110vh', x: '+=' + (Math.random() * 100 - 50), rotation: 360, duration: Math.random() * 10 + 10, repeat: -1, ease: "none", delay: Math.random() * 15 });
       }
+
+      renderAnnouncements(config.primary);
     }
 
-    // 2. 互動字母
-    function initTitles() {
-      const en = "RACCOONLINLIN";
-      const containerEn = document.getElementById('title-en');
+    // 核心：跳動文字生成 (確保初始位置正確)
+    function createInteractiveText(containerId, text, baseClass, bounceY = -25, scale = 1.3) {
+      const container = document.getElementById(containerId);
+      if(!container) return;
       
-      en.split('').forEach((char, i) => {
+      container.innerHTML = ''; // 清空預留空間內容
+      
+      text.split('').forEach((char, i) => {
         const span = document.createElement('span');
-        span.innerText = char;
-        span.className = 'letter text-[7vw] md:text-[5vw] font-black tracking-tighter text-gray-900 leading-none';
-        containerEn.appendChild(span);
+        span.innerText = char === ' ' ? '\u00A0' : char; // 處理空格
+        span.className = `letter ${baseClass}`;
+        container.appendChild(span);
 
-        gsap.from(span, { y: 50, opacity: 0, duration: 1, delay: i * 0.05, ease: "back.out(2)" });
-
-        span.addEventListener('mouseenter', () => {
-          gsap.to(span, { y: -15, scale: 1.3, color: getComputedStyle(document.documentElement).getPropertyValue('--primary'), duration: 0.3 });
+        // 入場動畫：從正確位置微幅彈入，確保不跳位
+        gsap.from(span, { 
+          opacity: 0, 
+          scale: 0.5, 
+          y: 20, 
+          duration: 1, 
+          delay: i * 0.05, 
+          ease: "back.out(2)" 
         });
+
+        // 懸停跳動
+        span.addEventListener('mouseenter', () => {
+          gsap.to(span, { 
+            y: bounceY, 
+            scale: scale, 
+            color: getComputedStyle(document.documentElement).getPropertyValue('--primary'),
+            duration: 0.4,
+            ease: "power2.out"
+          });
+        });
+
         span.addEventListener('mouseleave', () => {
-          gsap.to(span, { y: 0, scale: 1, color: '#111827', duration: 0.6, ease: "elastic.out(1, 0.3)" });
+          gsap.to(span, { 
+            y: 0, 
+            scale: 1, 
+            color: 'inherit', 
+            duration: 0.7, 
+            ease: "elastic.out(1.2, 0.4)" 
+          });
         });
       });
-
-      gsap.from('#title-zh', { scale: 0.9, opacity: 0, duration: 1.5, delay: 0.8, ease: "power4.out" });
     }
 
-    // 3. UX 邏輯
+    // 活動公告渲染
+    function renderAnnouncements(primaryColor) {
+      const events = [
+        { date: '2024.12.20', title: '暖冬手作市集', type: 'Market', location: '台北 華山 1914', status: '即將開始' },
+        { date: '2024.12.28', title: '角色插畫工作坊', type: 'Workshop', location: '台中 審計新村', status: '報名中' },
+        { date: '2025.01.15', title: '新年限時快閃店', type: 'Pop-up', location: '高雄 駁二特區', status: '預告中' }
+      ];
+
+      const grid = document.getElementById('events-grid');
+      grid.innerHTML = events.map(ev => `
+        <div class="event-card glass-effect p-10 rounded-[2.5rem] border border-white/40 flex flex-col gap-6">
+          <div class="flex justify-between items-start">
+            <span class="text-xs font-black tracking-widest text-gray-400">${ev.date}</span>
+            <span class="px-3 py-1 rounded-lg text-[9px] font-bold text-white uppercase" style="background: ${primaryColor}">${ev.type}</span>
+          </div>
+          <h3 class="text-xl font-bold text-gray-800">${ev.title}</h3>
+          <div class="flex items-center gap-2 text-gray-500 text-sm">
+            <span>📍</span>
+            <span>${ev.location}</span>
+          </div>
+          <div class="mt-auto pt-6 flex justify-between items-center border-t border-gray-100/50">
+            <span class="text-[10px] font-black uppercase text-gray-400">${ev.status}</span>
+            <button class="text-xs font-bold hover:underline" style="color: ${primaryColor}">了解詳情 →</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
     function initUX() {
       const cursor = document.getElementById('custom-cursor');
       window.addEventListener('mousemove', (e) => {
         gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
-        
-        // 背景視差
-        const moveX = (e.clientX / window.innerWidth - 0.5) * 40;
-        const moveY = (e.clientY / window.innerHeight - 0.5) * 40;
-        gsap.to('#hero-deco', { x: moveX, y: moveY, duration: 0.5 });
+        const moveX = (e.clientX / window.innerWidth - 0.5) * 30;
+        const moveY = (e.clientY / window.innerHeight - 0.5) * 30;
+        gsap.to('#hero-deco', { x: moveX, y: moveY, duration: 1 });
       });
 
       gsap.to('#scroll-fill', { y: 80, duration: 1.5, repeat: -1, ease: "power1.inOut" });
 
-      document.querySelectorAll('button, a, .letter, .shop-card').forEach(el => {
-        el.addEventListener('mouseenter', () => gsap.to(cursor, { scale: 3, opacity: 0.2 }));
+      // 增加互動範圍
+      document.querySelectorAll('button, a, .letter, .shop-card, .event-card').forEach(el => {
+        el.addEventListener('mouseenter', () => gsap.to(cursor, { scale: 3.5, opacity: 0.15 }));
         el.addEventListener('mouseleave', () => gsap.to(cursor, { scale: 1, opacity: 0.6 }));
       });
     }
 
     window.onload = () => {
       initSeason();
-      initTitles();
+      
+      // 生成各區跳動文字
+      createInteractiveText('nav-logo', 'RACCOONLINLIN', 'text-gray-900 font-black', -5, 1.1);
+      createInteractiveText('title-en', 'RACCOONLINLIN', 'text-[7vw] md:text-[5vw] font-black tracking-tighter text-gray-900 leading-none', -20, 1.2);
+      createInteractiveText('title-zh-container', '浣熊琳琳', 'text-[12vw] md:text-[8vw] font-black italic tracking-tight leading-none text-pink-400', -30, 1.2);
+      
       initUX();
     };
   </script>
