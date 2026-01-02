@@ -1,300 +1,346 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RACCOONLINLIN｜浣熊琳琳 - 讓生活充滿溫度</title>
-    
-    <!-- 外部資源載入 -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RACCOONLINLIN｜浣熊琳琳 - 互動品牌故事</title>
+  
+  <!-- 外部資源載入 -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        :root {
-            --primary: #f472b6;
-            --secondary: #fbcfe8;
-            --bg-gradient: linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%);
-        }
+  <style>
+    :root {
+      --primary: #f472b6;
+      --secondary: #fbcfe8;
+      --bg: linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%);
+    }
 
-        body {
-            font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
-            overflow-x: hidden;
-            background: var(--bg-gradient);
-            transition: background 1s ease;
-            cursor: none; /* 隱藏原生游標 */
-        }
+    body {
+      font-family: 'Noto Sans TC', 'Quicksand', sans-serif;
+      overflow-x: hidden;
+      background: var(--bg);
+      transition: background 1s ease;
+      cursor: none; /* 隱藏原生游標 */
+    }
 
-        /* 隱藏捲動條但保留功能 */
-        ::-webkit-scrollbar { width: 0px; }
+    /* 捲動行為 */
+    html { scroll-behavior: smooth; }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
+    /* 玻璃擬態 */
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-        /* 字母液態效果 */
-        .letter {
-            display: inline-block;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: default;
-        }
-        .letter:hover {
-            transform: translateY(-15px) scale(1.3) rotate(5deg);
-            color: var(--primary);
-        }
+    /* 互動大字字母樣式 */
+    .letter {
+      display: inline-block;
+      transition: color 0.3s ease;
+      cursor: default;
+      user-select: none;
+    }
 
-        .custom-cursor {
-            width: 20px;
-            height: 20px;
-            background: var(--primary);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: multiply;
-            opacity: 0.6;
-            transition: transform 0.1s ease;
-        }
+    /* 自定義游標 */
+    #custom-cursor {
+      width: 24px;
+      height: 24px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: multiply;
+      opacity: 0.5;
+      transform: translate(-50%, -50%);
+    }
 
-        .vertical-text {
-            writing-mode: vertical-rl;
-            text-orientation: mixed;
-        }
+    /* 視差層 */
+    .parallax-layer {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+    }
 
-        .mask-gradient {
-            -webkit-mask-image: linear-gradient(to top, transparent 0%, black 50%);
-            mask-image: linear-gradient(to top, transparent 0%, black 50%);
-        }
+    .mask-gradient {
+      mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 50%);
+      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 50%);
+    }
 
-        /* 季節粒子 */
-        .particle {
-            position: fixed;
-            pointer-events: none;
-            z-index: 10;
-            user-select: none;
-        }
-    </style>
+    .particle {
+      position: fixed;
+      z-index: 5;
+      pointer-events: none;
+      font-size: 24px;
+    }
+
+    /* 卡片懸浮效果 */
+    .bento-card {
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .bento-card:hover {
+      transform: translateY(-8px);
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "framer-motion": "https://esm.sh/framer-motion@^12.23.26",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
 </head>
 <body class="text-gray-800">
 
-    <!-- 自定義游標 -->
-    <div id="cursor" class="custom-cursor"></div>
+  <!-- 自定義游標 -->
+  <div id="custom-cursor"></div>
 
-    <!-- 導航欄 -->
-    <nav class="fixed top-0 left-0 w-full z-50 glass border-b border-gray-100 px-6 py-4 flex justify-between items-center">
-        <div class="text-xl font-bold tracking-wider" style="color: var(--primary)">RACCOONLINLIN</div>
-        <div id="season-badge" class="px-3 py-1 rounded-full text-white text-[10px] font-bold">加載中...</div>
-    </nav>
+  <!-- 導航欄 -->
+  <nav class="fixed top-0 left-0 w-full z-50 glass-effect border-b border-white/20 px-6 py-4 flex justify-between items-center">
+    <div class="text-xl font-bold tracking-wider" style="color: var(--primary)">RACCOONLINLIN</div>
+    <div class="flex items-center gap-3">
+      <span id="season-badge" class="px-3 py-1 rounded-full text-white text-[10px] font-bold">加載中</span>
+      <span class="text-sm text-gray-500 hidden sm:block">插畫 · 手作 · 溫度</span>
+    </div>
+  </nav>
 
-    <!-- Hero Section -->
-    <header id="hero" class="relative h-screen flex items-center justify-center overflow-hidden">
-        <!-- 視差裝飾 -->
-        <div id="hero-bg-objects" class="absolute inset-0 pointer-events-none">
-            <div class="float-obj absolute top-1/4 left-[10%] text-5xl">🎨</div>
-            <div class="float-obj absolute bottom-1/4 right-[12%] text-6xl">🧶</div>
-            <div class="float-obj absolute top-1/3 right-[18%] text-4xl">✨</div>
-            <div class="float-obj absolute bottom-1/5 left-[15%] text-5xl">🦊</div>
+  <!-- Hero Section -->
+  <header id="hero" class="relative h-screen flex flex-col items-center justify-center overflow-hidden">
+    <!-- 視差背景物件 -->
+    <div id="hero-deco" class="absolute inset-0 pointer-events-none">
+      <div class="parallax-layer text-5xl opacity-30" style="top: 20%; left: 15%">🎨</div>
+      <div class="parallax-layer text-6xl opacity-30" style="bottom: 25%; right: 15%">🧶</div>
+      <div class="parallax-layer text-4xl opacity-30" style="top: 40%; right: 20%">✨</div>
+      <div class="parallax-layer text-5xl opacity-30" style="bottom: 15%; left: 20%">🦊</div>
+    </div>
+
+    <!-- 主體內容 -->
+    <div class="relative z-10 text-center px-4 max-w-4xl flex flex-col items-center">
+      
+      <!-- 第一排：英文 (較小且鎖定同一排) -->
+      <div id="interactive-en" class="flex flex-nowrap justify-center gap-[2px] mb-2 overflow-visible">
+        <!-- 字母由 JS 動態生成 -->
+      </div>
+
+      <!-- 第二排：中文 (大互動字) -->
+      <h1 id="interactive-zh" class="text-[10vw] md:text-[8vw] font-black italic mb-8 leading-none" style="color: var(--primary); text-shadow: 0 10px 40px rgba(0,0,0,0.1);">
+        浣熊琳琳
+      </h1>
+
+      <p class="text-gray-500 text-lg md:text-xl max-w-2xl mb-16 font-medium leading-relaxed">
+        你是否也曾想過，如果世界是本巨大的畫冊，我們該如何塗抹？我是琳琳，在這裡，我們用繽紛色彩捕捉快樂。
+      </p>
+
+      <!-- 置中按鈕組 -->
+      <div class="flex flex-col items-center gap-14">
+        <button onclick="document.getElementById('values').scrollIntoView()" class="group relative px-16 py-6 bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl transition-all hover:scale-105 active:scale-95">
+          <span class="relative z-10 text-white font-bold text-lg tracking-widest">進入色彩世界</span>
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
+               style="background: linear-gradient(45deg, var(--primary), var(--secondary))"></div>
+        </button>
+
+        <!-- 捲動指示 -->
+        <div class="flex flex-col items-center gap-5">
+          <span class="text-[10px] font-black tracking-[0.6em] text-gray-400 uppercase">SCROLL TO EXPLORE</span>
+          <div class="w-[2px] h-20 bg-gray-200 relative overflow-hidden rounded-full">
+            <div id="scroll-bar-fill" class="absolute top-0 left-0 w-full h-1/2" style="background: var(--primary)"></div>
+          </div>
         </div>
+      </div>
+    </div>
 
-        <div class="text-center z-20 px-4 flex flex-col items-center">
-            <!-- 第一排：縮小互動英文名 -->
-            <div id="title-en" class="flex justify-center flex-nowrap mb-2 overflow-visible">
-                <!-- 由 JS 生成字母 -->
-            </div>
+    <!-- 底部融合插畫 -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-7xl opacity-[0.08] pointer-events-none z-0 mask-gradient">
+      <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=1000" class="w-full grayscale brightness-110">
+    </div>
+  </header>
 
-            <!-- 第二排：中文名 -->
-            <h2 id="title-zh" class="text-[9vw] md:text-[6.5vw] font-black italic mb-8" style="color: var(--primary); text-shadow: 0 10px 40px rgba(0,0,0,0.1);">
-                浣熊琳琳
-            </h2>
+  <!-- 品牌價值 -->
+  <section id="values" class="py-32 px-6 max-w-6xl mx-auto">
+    <div class="text-center mb-20">
+      <h2 class="text-3xl font-bold mb-4">核心創作理念</h2>
+      <div class="h-1.5 w-20 mx-auto rounded-full" style="background: var(--primary)"></div>
+    </div>
 
-            <!-- 描述文字 -->
-            <p class="text-gray-500 text-base md:text-xl max-w-2xl mx-auto mb-16 font-medium leading-relaxed">
-                你是否也曾想過，如果世界是本巨大的畫冊，我們該如何塗抹？我是琳琳，在這裡，我們用繽紛色彩捕捉快樂。
-            </p>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="glass-effect p-10 rounded-[3rem] bento-card text-center">
+        <div class="text-5xl mb-6">🎨</div>
+        <h3 class="text-xl font-bold mb-4">色彩的轉譯</h3>
+        <p class="text-gray-500 leading-relaxed text-sm">每一種繽紛，都代表著生活中被遺忘的微小喜悅。</p>
+      </div>
+      <div class="glass-effect p-10 rounded-[3rem] bento-card text-center">
+        <div class="text-5xl mb-6">🧶</div>
+        <h3 class="text-xl font-bold mb-4">手作的刻痕</h3>
+        <p class="text-gray-500 leading-relaxed text-sm">每一件帶有指尖溫度的作品，都是對生活最誠摯的告白。</p>
+      </div>
+      <div class="glass-effect p-10 rounded-[3rem] bento-card text-center">
+        <div class="text-5xl mb-6">✨</div>
+        <h3 class="text-xl font-bold mb-4">文創的靈魂</h3>
+        <p class="text-gray-500 leading-relaxed text-sm">不只是裝飾，更是書桌上那抹讓你嘴角上揚的力量。</p>
+      </div>
+    </div>
+  </section>
 
-            <!-- 完全置中按鈕組 -->
-            <div class="flex flex-col items-center gap-12">
-                <button onclick="scrollToContent()" class="group relative px-16 py-6 bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl transition-all hover:scale-105 active:scale-95">
-                    <span class="relative z-10 text-white font-bold text-lg tracking-widest">進入色彩世界</span>
-                    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
-                         style="background: linear-gradient(45deg, var(--primary), var(--secondary))"></div>
-                </button>
+  <!-- 頁尾 -->
+  <footer class="py-16 text-center text-gray-400 text-sm border-t border-white/20 glass-effect">
+    <p>&copy; 2024 RACCOONLINLIN. All Rights Reserved.</p>
+    <p class="italic mt-2">在繽紛的色彩裡，我們相遇。</p>
+  </footer>
 
-                <div class="flex flex-col items-center gap-5">
-                    <span class="text-[10px] font-black tracking-[0.6em] text-gray-400 uppercase">SCROLL TO EXPLORE</span>
-                    <div class="w-[2px] h-20 bg-gray-100 relative overflow-hidden rounded-full">
-                        <div id="scroll-bar" class="absolute top-0 left-0 w-full h-1/2" style="background: var(--primary)"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <script>
+    // 1. 季節邏輯數據
+    const SEASONS = {
+      spring: { name: '春暖花開', primary: '#f472b6', secondary: '#fbcfe8', bg: 'linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%)', particles: ['🌸', '🍃', '✨'] },
+      summer: { name: '仲夏之夢', primary: '#38bdf8', secondary: '#bae6fd', bg: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)', particles: ['🫧', '☀️', '💧'] },
+      autumn: { name: '秋意濃濃', primary: '#fb923c', secondary: '#ffedd5', bg: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', particles: ['🍁', '🍂', '🌾'] },
+      winter: { name: '冬日煦陽', primary: '#94a3b8', secondary: '#f1f5f9', bg: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)', particles: ['❄️', '☁️', '🤍'] }
+    };
 
-        <!-- 底部大插畫 -->
-        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-7xl opacity-[0.08] pointer-events-none z-10 mask-gradient">
-            <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&q=80&w=1000" class="w-full grayscale">
-        </div>
-    </header>
+    function getCurrentSeasonKey() {
+      const month = new Date().getMonth() + 1;
+      if (month >= 3 && month <= 5) return 'spring';
+      if (month >= 6 && month <= 8) return 'summer';
+      if (month >= 9 && month <= 11) return 'autumn';
+      return 'winter';
+    }
 
-    <!-- 品牌價值 -->
-    <section id="content" class="max-w-6xl mx-auto px-6 py-32">
-        <div class="text-center mb-20">
-            <h2 class="text-3xl font-bold mb-4">為什麼選擇 RACCOONLINLIN？</h2>
-            <div class="h-1 w-20 mx-auto rounded-full" style="background: var(--primary)"></div>
-        </div>
+    // 2. 初始化季節樣式
+    function initSeason() {
+      const key = getCurrentSeasonKey();
+      const config = SEASONS[key];
+      
+      document.documentElement.style.setProperty('--primary', config.primary);
+      document.documentElement.style.setProperty('--secondary', config.secondary);
+      document.documentElement.style.setProperty('--bg', config.bg);
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="glass p-10 rounded-[2.5rem] hover:translate-y-[-10px] transition-transform">
-                <div class="text-5xl mb-6">🎨</div>
-                <h3 class="text-xl font-bold mb-4">色彩的轉譯</h3>
-                <p class="text-gray-500">每一種繽紛，都代表著生活中被遺忘的微小喜悅。</p>
-            </div>
-            <div class="glass p-10 rounded-[2.5rem] hover:translate-y-[-10px] transition-transform">
-                <div class="text-5xl mb-6">🧶</div>
-                <h3 class="text-xl font-bold mb-4">手作的刻痕</h3>
-                <p class="text-gray-500">帶有指尖溫度的作品，是對生活最誠摯的告白。</p>
-            </div>
-            <div class="glass p-10 rounded-[2.5rem] hover:translate-y-[-10px] transition-transform">
-                <div class="text-5xl mb-6">✨</div>
-                <h3 class="text-xl font-bold mb-4">文創的靈魂</h3>
-                <p class="text-gray-500">讓美感與實用共存，成為你書桌上上揚的力量。</p>
-            </div>
-        </div>
-    </section>
+      const badge = document.getElementById('season-badge');
+      badge.innerText = config.name;
+      badge.style.backgroundColor = config.primary;
 
-    <!-- 頁尾 -->
-    <footer class="py-12 text-center text-gray-400 text-sm border-t border-gray-100 glass">
-        <p>&copy; 2024 RACCOONLINLIN. All Rights Reserved.</p>
-        <p class="italic mt-2">在繽紛的色彩裡，我們相遇。</p>
-    </footer>
+      // 生成粒子
+      for (let i = 0; i < 20; i++) {
+        createParticle(config.particles);
+      }
+    }
 
-    <script>
-        // 1. 季節配置與邏輯
-        const SEASONS = {
-            spring: { name: '春暖花開', primary: '#f472b6', secondary: '#fbcfe8', bg: 'linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%)', particles: ['🌸', '🍃'] },
-            summer: { name: '仲夏之夢', primary: '#38bdf8', secondary: '#bae6fd', bg: 'linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)', particles: ['🫧', '☀️'] },
-            autumn: { name: '秋意濃濃', primary: '#fb923c', secondary: '#ffedd5', bg: 'linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%)', particles: ['🍁', '🍂'] },
-            winter: { name: '冬日煦陽', primary: '#94a3b8', secondary: '#f1f5f9', bg: 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)', particles: ['❄️', '🤍'] }
-        };
+    function createParticle(emojis) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.innerText = emojis[Math.floor(Math.random() * emojis.emoji?.length) || 0] || emojis[0];
+      p.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.top = '-50px';
+      document.body.appendChild(p);
 
-        function initSeason() {
-            const month = new Date().getMonth() + 1;
-            let seasonKey = 'winter';
-            if (month >= 3 && month <= 5) seasonKey = 'spring';
-            else if (month >= 6 && month <= 8) seasonKey = 'summer';
-            else if (month >= 9 && month <= 11) seasonKey = 'autumn';
+      gsap.to(p, {
+        y: '110vh',
+        x: '+=' + (Math.random() * 200 - 100),
+        rotation: 360,
+        opacity: [0, 1, 1, 0],
+        duration: Math.random() * 10 + 10,
+        delay: Math.random() * 15,
+        repeat: -1,
+        ease: "none"
+      });
+    }
 
-            const config = SEASONS[seasonKey];
-            document.documentElement.style.setProperty('--primary', config.primary);
-            document.documentElement.style.setProperty('--secondary', config.secondary);
-            document.documentElement.style.setProperty('--bg-gradient', config.bg);
-            
-            const badge = document.getElementById('season-badge');
-            badge.innerText = config.name;
-            badge.style.backgroundColor = config.primary;
+    // 3. 初始化互動大字
+    function initInteractiveTitles() {
+      const enText = "RACCOONLINLIN";
+      const enContainer = document.getElementById('interactive-en');
+      
+      enText.split('').forEach((char, i) => {
+        const span = document.createElement('span');
+        span.innerText = char;
+        span.className = 'letter text-[6vw] md:text-[5vw] font-black tracking-tighter text-gray-900';
+        enContainer.appendChild(span);
 
-            // 產生粒子
-            for (let i = 0; i < 15; i++) {
-                createParticle(config.particles);
-            }
-        }
-
-        function createParticle(emojis) {
-            const p = document.createElement('div');
-            p.className = 'particle';
-            p.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            p.style.left = Math.random() * 100 + 'vw';
-            p.style.top = '-5vh';
-            p.style.fontSize = (Math.random() * 20 + 20) + 'px';
-            document.body.appendChild(p);
-
-            gsap.to(p, {
-                y: '110vh',
-                x: '+=' + (Math.random() * 200 - 100),
-                rotation: 360,
-                duration: Math.random() * 10 + 10,
-                repeat: -1,
-                delay: Math.random() * 10,
-                ease: 'none'
-            });
-        }
-
-        // 2. 互動字母生成
-        function initTitle() {
-            const titleStr = "RACCOONLINLIN";
-            const container = document.getElementById('title-en');
-            titleStr.split('').forEach((char, i) => {
-                const span = document.createElement('span');
-                span.innerText = char;
-                span.className = 'letter text-[10vw] md:text-[7.5vw] font-black tracking-tighter text-gray-900';
-                container.appendChild(span);
-                
-                gsap.from(span, {
-                    y: 100,
-                    opacity: 0,
-                    duration: 1,
-                    delay: i * 0.05,
-                    ease: 'back.out(1.7)'
-                });
-            });
-        }
-
-        // 3. 游標邏輯
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, {
-                x: e.clientX,
-                y: e.clientY,
-                duration: 0.1
-            });
+        // 入場動畫
+        gsap.from(span, {
+          y: 50,
+          opacity: 0,
+          rotateX: -90,
+          duration: 1,
+          delay: i * 0.05,
+          ease: "back.out(2)"
         });
 
-        document.querySelectorAll('button, a, .glass').forEach(el => {
-            el.addEventListener('mouseenter', () => gsap.to(cursor, { scale: 3, opacity: 0.2 }));
-            el.addEventListener('mouseleave', () => gsap.to(cursor, { scale: 1, opacity: 0.6 }));
+        // 滑鼠互動
+        span.addEventListener('mouseenter', () => {
+          gsap.to(span, {
+            y: -20,
+            scale: 1.3,
+            rotate: Math.random() * 20 - 10,
+            color: getComputedStyle(document.documentElement).getPropertyValue('--primary').trim(),
+            duration: 0.3,
+            ease: "power2.out"
+          });
         });
+        span.addEventListener('mouseleave', () => {
+          gsap.to(span, {
+            y: 0,
+            scale: 1,
+            rotate: 0,
+            color: '#111827',
+            duration: 0.6,
+            ease: "elastic.out(1, 0.3)"
+          });
+        });
+      });
 
-        // 4. 動效與視差
-        function initAnimations() {
-            // 背景漂浮
-            gsap.to('.float-obj', {
-                y: -20,
-                duration: 3,
-                repeat: -1,
-                yoyo: true,
-                ease: 'power1.inOut',
-                stagger: 0.5
-            });
+      // 中文標題互動
+      const zh = document.getElementById('interactive-zh');
+      gsap.from(zh, { opacity: 0, scale: 0.8, duration: 1.5, delay: 0.8, ease: "power4.out" });
+      zh.addEventListener('mouseenter', () => {
+        gsap.to(zh, { scale: 1.05, letterSpacing: '0.1em', duration: 0.5 });
+      });
+      zh.addEventListener('mouseleave', () => {
+        gsap.to(zh, { scale: 1, letterSpacing: '0', duration: 0.5 });
+      });
+    }
 
-            // 捲動條動畫
-            gsap.to('#scroll-bar', {
-                y: 100,
-                duration: 1.5,
-                repeat: -1,
-                ease: 'none'
-            });
+    // 4. 游標與視差
+    function initUX() {
+      const cursor = document.getElementById('custom-cursor');
+      window.addEventListener('mousemove', (e) => {
+        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+        
+        // 背景視差
+        const moveX = (e.clientX / window.innerWidth - 0.5) * 50;
+        const moveY = (e.clientY / window.innerHeight - 0.5) * 50;
+        gsap.to('.parallax-layer', { x: moveX, y: moveY, duration: 0.5 });
+      });
 
-            // 視差效果
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                gsap.to('#hero-bg-objects', { y: scrolled * 0.3 });
-                gsap.to('#title-en, #title-zh', { y: scrolled * -0.1, opacity: 1 - scrolled/600 });
-            });
-        }
+      // 捲動指示器
+      gsap.to('#scroll-bar-fill', {
+        y: 80,
+        duration: 2,
+        repeat: -1,
+        ease: "power1.inOut"
+      });
 
-        function scrollToContent() {
-            document.getElementById('content').scrollIntoView({ behavior: 'smooth' });
-        }
+      // 滑過可點擊元件游標放大
+      document.querySelectorAll('button, .letter, .bento-card').forEach(el => {
+        el.addEventListener('mouseenter', () => gsap.to(cursor, { scale: 3, opacity: 0.2 }));
+        el.addEventListener('mouseleave', () => gsap.to(cursor, { scale: 1, opacity: 0.5 }));
+      });
+    }
 
-        // 初始化
-        window.onload = () => {
-            initSeason();
-            initTitle();
-            initAnimations();
-        };
-    </script>
+    // 啟動
+    window.onload = () => {
+      initSeason();
+      initInteractiveTitles();
+      initUX();
+    };
+  </script>
 </body>
 </html>
