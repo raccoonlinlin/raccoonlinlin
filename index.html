@@ -24,7 +24,6 @@
       overflow-x: hidden;
       background: var(--bg);
       transition: background 1s ease;
-      /* 電腦版預設隱藏游標，手機版會透過 JS 恢復 */
       cursor: none;
     }
 
@@ -66,15 +65,20 @@
       pointer-events: none;
     }
 
-    .mask-gradient {
-      mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 50%);
-      -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 50%);
+    /* 超寬影片比例容器 */
+    .video-aspect-ratio {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 5120 / 1080;
     }
 
-    /* 手機版適配樣式 */
     @media (max-width: 1024px) {
       body { cursor: auto !important; }
       #custom-cursor { display: none !important; }
+      /* 手機版讓影片高度增加，避免太扁 */
+      .video-aspect-ratio {
+        aspect-ratio: 16 / 9;
+      }
     }
   </style>
 </head>
@@ -87,7 +91,7 @@
     <div id="season-badge" class="px-4 py-1.5 rounded-full text-white text-[10px] font-black uppercase tracking-widest shadow-lg">SEASON</div>
   </nav>
 
-  <header class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-40 pb-20">
+  <header class="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden pt-32 pb-10">
     <div id="hero-deco" class="absolute inset-0 pointer-events-none opacity-25">
       <div class="absolute text-5xl" style="top: 20%; left: 10%">🎨</div>
       <div class="absolute text-6xl" style="bottom: 25%; right: 12%">🧶</div>
@@ -98,19 +102,34 @@
     <div class="relative z-10 text-center px-4 max-w-5xl flex flex-col items-center">
       <div id="title-en" class="flex flex-nowrap justify-center gap-[4px] mb-8 overflow-visible"></div>
       <div id="title-zh-container" class="flex justify-center gap-2 mb-10 overflow-visible" style="transform: skew(-3deg);"></div>
-
-      <p class="text-gray-500 text-lg md:text-xl max-w-2xl mb-16 font-medium leading-relaxed tracking-wide">
+      <p class="text-gray-500 text-lg md:text-xl max-w-2xl mb-10 font-medium leading-relaxed tracking-wide">
         每一種顏色都是一種情緒，每一件手作都是一段故事。<br class="hidden md:block">在琳琳的插畫世界裡，我們用指尖的溫度紀錄每一天的美好。
       </p>
-
-      <div class="flex flex-col items-center gap-14">
-        <button onclick="document.getElementById('shop').scrollIntoView()" class="group relative px-16 py-6 bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl transition-all hover:scale-105 active:scale-95">
-          <span class="relative z-10 text-white font-bold text-lg tracking-[0.2em]">探索作品</span>
-          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: linear-gradient(45deg, var(--primary), var(--secondary))"></div>
-        </button>
-      </div>
+      <button onclick="document.getElementById('shop').scrollIntoView()" class="group relative px-16 py-6 bg-gray-900 rounded-[2.5rem] overflow-hidden shadow-2xl transition-all hover:scale-105 active:scale-95">
+        <span class="relative z-10 text-white font-bold text-lg tracking-[0.2em]">探索作品</span>
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: linear-gradient(45deg, var(--primary), var(--secondary))"></div>
+      </button>
     </div>
   </header>
+
+  <section class="w-full bg-white/20 py-10">
+    <div class="max-w-[1400px] mx-auto px-4 md:px-10">
+      <div class="video-aspect-ratio rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-2xl border-4 border-white glass-effect">
+        <video 
+          class="absolute inset-0 w-full h-full object-cover" 
+          autoplay muted loop playsinline>
+          <source src="video.mp4" type="video/mp4">
+          您的瀏覽器不支援影片播放。
+        </video>
+        <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 to-transparent"></div>
+      </div>
+      <div class="mt-6 flex justify-center items-center gap-4 text-gray-300">
+        <span class="w-12 h-[1px] bg-gray-200"></span>
+        <span class="text-[10px] font-black uppercase tracking-[0.4em]">Cinematic Showcase</span>
+        <span class="w-12 h-[1px] bg-gray-200"></span>
+      </div>
+    </div>
+  </section>
 
   <section id="shop" class="py-32 px-6 max-w-7xl mx-auto">
     <div class="text-center mb-24">
@@ -118,9 +137,7 @@
       <p class="text-gray-400 font-medium tracking-widest uppercase text-xs">Handcrafted Magic & Illustrations</p>
       <div class="h-1.5 w-24 mx-auto rounded-full mt-8" style="background: var(--primary)"></div>
     </div>
-
-    <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-      </div>
+    <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
   </section>
 
   <section id="announcements" class="py-24 px-6 max-w-7xl mx-auto border-t border-white/20">
@@ -146,7 +163,6 @@
           <a href="https://www.youtube.com/@Raccoonlinlin%E6%B5%A3%E7%86%8A%E7%90%B3%E7%90%B3" target="_blank" class="inline-flex items-center justify-center gap-4 px-12 py-6 rounded-[2rem] text-white font-bold transition-all shadow-2xl hover:-translate-y-2" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">訂閱我的頻道</a>
         </div>
       </div>
-
       <div id="socials-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
     </div>
   </section>
@@ -218,7 +234,6 @@
         { date: '2025.02.01', title: '新年明信片列印活動', type: 'new year', location: '7-11 ibon', status: '預告中', url: 'https://www.instagram.com/raccoonlinlin/' }
       ];
       const grid = document.getElementById('events-grid');
-      const primary = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim();
       grid.innerHTML = events.map(ev => `
         <div class="event-card glass-effect p-10 rounded-[2.5rem] flex flex-col gap-6">
           <div class="flex justify-between">
@@ -285,7 +300,6 @@
           });
         });
       } else {
-        // 手機版背景自動微動
         gsap.to('#hero-deco', { x: 15, y: 15, duration: 3, repeat: -1, yoyo: true, ease: "sine.inOut" });
       }
     }
