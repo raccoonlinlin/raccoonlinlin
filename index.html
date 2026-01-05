@@ -112,13 +112,17 @@
     </div>
   </header>
 
-  <section class="w-full bg-white/20 py-10">
+ <section class="w-full bg-white/20 py-10">
     <div class="max-w-[1400px] mx-auto px-4 md:px-10">
       <div class="video-aspect-ratio rounded-[2.5rem] md:rounded-[4rem] overflow-hidden shadow-2xl border-4 border-white glass-effect">
         <video 
           class="absolute inset-0 w-full h-full object-cover" 
-          autoplay muted loop playsinline>
-       <source src="倒垃圾.MP4" type="video/mp4">
+          autoplay 
+          muted 
+          loop 
+          playsinline
+          preload="auto">
+          <source src="倒垃圾.MP4" type="video/mp4">
           您的瀏覽器不支援影片播放。
         </video>
         <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/20 to-transparent"></div>
