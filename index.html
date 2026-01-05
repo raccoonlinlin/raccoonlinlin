@@ -238,8 +238,8 @@
           </div>
         </div>
         <div class="w-full lg:w-2/5 space-y-10">
-          <h2 class="text-5xl font-black text-gray-900">創作幕後</h2>
-          <p class="text-gray-400 leading-relaxed text-lg">每一件作品的誕生都是一段旅程。在 YouTube，我紀錄了插畫的筆觸、手作的細節，以及生活中的碎語。</p>
+          <h2 class="text-5xl font-black text-gray-900">YT短片</h2>
+          <p class="text-gray-400 leading-relaxed text-lg">在 YouTube我紀錄了插畫短片、手作商品，以及我家萌寵的日常。</p>
           <a href="https://youtube.com" target="_blank" class="inline-flex items-center justify-center gap-4 px-12 py-6 rounded-[2rem] text-white font-bold transition-all shadow-2xl hover:-translate-y-2 active:scale-95" style="background: linear-gradient(45deg, var(--primary), var(--secondary))">訂閱我的頻道</a>
         </div>
       </div>
@@ -358,12 +358,33 @@
       });
     }
 
-    // 活動公告渲染
+// 活動公告渲染
     function renderAnnouncements(primaryColor) {
       const events = [
-        { date: '2024.12.23', title: 'Memopresso相框活動', type: 'photo frame', location: '台灣各地據點', status: '進行中' },
-        { date: '2025.01.01', title: '蝦皮賣場開賣', type: 'shop', location: '蝦皮賣場', status: '進行中' },
-        { date: '2025.02.01', title: '新年明信片列印活動', type: 'new year', location: '7-11 ibon', status: '預告中' }
+        { 
+          date: '2024.12.23', 
+          title: 'Memopresso相框活動', 
+          type: 'photo frame', 
+          location: '台灣各地據點', 
+          status: '進行中',
+          url: 'https://creator.memopresso.com/raccoonlinlin' // 
+        },
+        { 
+          date: '2025.01.01', 
+          title: '蝦皮賣場開賣', 
+          type: 'shop', 
+          location: '蝦皮賣場', 
+          status: '進行中',
+          url: 'https://shopee.tw/aboo2019?entryPoint=ShopBySearch&searchKeyword=raccoonlinlin' // 
+        },
+        { 
+          date: '2025.02.01', 
+          title: '新年明信片列印活動', 
+          type: 'new year', 
+          location: '7-11 ibon', 
+          status: '預告中',
+          url: 'https://www.instagram.com/raccoonlinlin/' // 
+        }
       ];
 
       const grid = document.getElementById('events-grid');
@@ -380,7 +401,11 @@
           </div>
           <div class="mt-auto pt-6 flex justify-between items-center border-t border-gray-100/50">
             <span class="text-[10px] font-black uppercase text-gray-400">${ev.status}</span>
-            <button class="text-xs font-bold hover:underline" style="color: ${primaryColor}">了解詳情 →</button>
+            
+            <a href="${ev.url}" target="_blank" class="text-xs font-bold hover:underline" style="color: ${primaryColor}">
+              了解詳情 →
+            </a>
+            
           </div>
         </div>
       `).join('');
