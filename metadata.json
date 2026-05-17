@@ -1,0 +1,8 @@
+{
+  "name": "RACCOONLINLIN 浣熊琳琳 官方網站",
+  "description": "🦝 浣熊琳琳 RACCOONLINLIN 官方網站。原創文創設計品牌，提供各式可愛、療癒的手作與設計周邊商品。",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

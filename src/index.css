@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Quicksand:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans TC", "Quicksand", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --primary: #f472b6;
+  --secondary: #fbcfe8;
+  --bg: linear-gradient(135deg, #fff1f2 0%, #fae8ff 100%);
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  background-attachment: fixed;
+  color: #4a3a3a;
+  overflow-x: hidden;
+}
+
+@media (min-width: 1025px) {
+  body {
+    cursor: none;
+  }
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.video-aspect-ratio {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 5120 / 1080;
+}
+
+@media (max-width: 1024px) {
+  .video-aspect-ratio {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+/* Particle styling */
+.particle {
+  position: fixed;
+  z-index: 5;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.footprint-stamp {
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  font-size: 32px;
+  transform: translate(-50%, -50%);
+  user-select: none;
+}
+
