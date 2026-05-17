@@ -6,7 +6,7 @@ import {defineConfig, loadEnv} from 'vite';
 export default defineConfig(({mode}) => {
   const env = loadEnv(mode, '.', '');
   return {
-    base: './', // <-- 關鍵！就在這裡加上這行，確保網頁路徑正確
+    base: '/raccoonlinlin/', // <-- 修正這裡！改成你的專案倉庫名稱
     plugins: [react(), tailwindcss()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
