@@ -38,7 +38,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' 
+          path: './dist' # <-- 關鍵！一定要改回 ./dist，讓它發布打包後的純前端檔案
 
       - name: Deploy to GitHub Pages
         id: deployment
