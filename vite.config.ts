@@ -17,7 +17,19 @@ export default defineConfig(({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'), // <-- 修正這裡！通常 @ 是指到 src 資料夾，確保引入元件路徑正確
+        '@': path.resolve(__dirname, './src'),
+      },
+    },
+    // 
+    build: {
+      emptyOutDir: true, // 
+      rollupOptions: {
+        output: {
+          // 
+          entryFileNames: `assets/[name].js?t=${Date.now()}`,
+          chunkFileNames: `assets/[name].js?t=${Date.now()}`,
+          assetFileNames: `assets/[name].[ext]?t=${Date.now()}`,
+        },
       },
     },
     server: {
