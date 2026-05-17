@@ -4,10 +4,8 @@ import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  // 如果你的 repo 是：
-  // raccoonlinlin.github.io
-  // 就維持 '/'
-  base: '/',
+
+  base: '/raccoonlinlin/',
 
   plugins: [
     react(),
