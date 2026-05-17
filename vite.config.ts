@@ -1,29 +1,18 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
-import { fileURLToPath } from 'url';
-import path from 'path';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig } from 'vite';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, '.', '');
-  return {
-    base: '/', 
-    plugins: [react(), tailwindcss()],
-    define: {
-      'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
+export default defineConfig({
+  base: '/', // 確保個人主頁能正確抓到路徑
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      // 🟢 用最單純的寫法，繞過網頁版會報錯的 __dirname
+      '@': '/src', 
     },
-    resolve: {
-      alias: {
-        '@': path.resolve(__dirname, './src'),
-      },
-    },
-    build: {
-      // 🟢 強制關鍵：我們不在雲端打包了。這行會命令你的電腦打包時，直接生出一個名為 docs 的資料夾
-      outDir: 'docs', 
-      emptyOutDir: true,
-    },
-  };
+  },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true, // 打包前強制清空舊檔案
+  },
 });
