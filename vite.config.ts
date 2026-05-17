@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename);
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
-    base: '/', // 個人主頁網址對齊根目錄
+    // 
+    base: '/', 
     plugins: [react(), tailwindcss()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
@@ -21,7 +22,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      emptyOutDir: true, // 每次打包前強制清空 dist
+      emptyOutDir: true, // 
     },
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',
