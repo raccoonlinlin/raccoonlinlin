@@ -32,13 +32,19 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      
       - name: Build
-        run: npm run build # 🟢 確保這行有執行！它會把 main.tsx 轉成瀏覽器看得懂的 js
+        shell: bash
+        run: |
+          set -e
+          npm run build
 
+  
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # 🟢 關鍵！必須發布 dist 資料夾，不能是根目錄 '.'
+          path: './dist'
+          if-no-files-found: error 
 
       - name: Deploy to GitHub Pages
         id: deployment
