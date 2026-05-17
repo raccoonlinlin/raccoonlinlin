@@ -16,6 +16,11 @@ export default defineConfig({
     tailwindcss(),
   ],
 
+
+  define: {
+    'process.env.PUBLIC_URL': JSON.stringify('/raccoonlinlin'),
+  },
+
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
