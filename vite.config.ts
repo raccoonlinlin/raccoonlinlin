@@ -10,7 +10,7 @@ const __dirname = path.dirname(__filename);
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
-    base: '/', 
+    base: '/', // 個人主頁網址對齊根目錄
     plugins: [react(), tailwindcss()],
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
@@ -20,17 +20,8 @@ export default defineConfig(({ mode }) => {
         '@': path.resolve(__dirname, './src'),
       },
     },
-    // 
     build: {
-      emptyOutDir: true, // 
-      rollupOptions: {
-        output: {
-          // 
-          entryFileNames: `assets/[name].js?t=${Date.now()}`,
-          chunkFileNames: `assets/[name].js?t=${Date.now()}`,
-          assetFileNames: `assets/[name].[ext]?t=${Date.now()}`,
-        },
-      },
+      emptyOutDir: true, // 每次打包前強制清空 dist
     },
     server: {
       hmr: process.env.DISABLE_HMR !== 'true',
