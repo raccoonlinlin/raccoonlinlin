@@ -27,10 +27,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci # <-- 改用 npm ci，這會強制刪除本地 node_modules 並根據 package.json 重新乾淨安裝，杜絕任何快取
 
       - name: Build
         run: npm run build
@@ -38,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # <-- 關鍵！一定要改回 ./dist，讓它發布打包後的純前端檔案
+          path: './dist' 
 
       - name: Deploy to GitHub Pages
         id: deployment
