@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      // 🟢 強制關鍵：我們不在雲端打包了。這行會命令你的電腦打包時，直接生出一個名為 docs 的資料夾
+      // 
       outDir: 'docs', 
       emptyOutDir: true,
     },
