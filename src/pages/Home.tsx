@@ -19,7 +19,7 @@ export const Home: React.FC = () => {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 w-full">
           <div className="w-full lg:w-1/2 flex flex-col justify-center gap-8 py-12 order-1">
             <div className="inline-block">
-              <span className="px-4 py-1 bg-pink-100 rounded-full text-[10px] font-black text-black tracking-widest border border-pink-200">✨ 最新活動公告</span>
+              <span className="px-4 py-1 bg-pink-100 rounded-full text-[10px] font-black text-black tracking-widest border border-pink-200">✨首頁</span>
             </div>
 
             <div className="space-y-6">
