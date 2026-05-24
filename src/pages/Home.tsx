@@ -3,9 +3,6 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useLocation } from 'react-router-dom';
 import { SOCIALS } from '../constants';
 
-// 💡 雙重保險：如果你的 37.JPG 在 src/assets/ 資料夾
-import brandImg from '../assets/37.JPG';
-
 export const Home: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
@@ -90,13 +87,13 @@ export const Home: React.FC = () => {
             viewport={{ once: true }}
             className="aspect-square bg-white rounded-[4rem] shadow-2xl border-8 border-white overflow-hidden flex items-center justify-center relative group"
           >
-            {/* 💡 修正後的核心圖片標籤 */}
+           
             <img 
-              src={brandImg} 
+              src={37.JPG} 
               alt="小浣熊頭像"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
               onError={(e) => {
-                // 防呆：如果 assets 內找不到，就自動改從 public/37.JPG 讀取路徑
+              
                 (e.target as HTMLImageElement).src = "./37.JPG";
               }}
             />
