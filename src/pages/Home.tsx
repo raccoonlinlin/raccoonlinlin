@@ -3,7 +3,6 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useLocation } from 'react-router-dom';
 import { SOCIALS } from '../constants';
 
-// 💡 頂部正式引入你的 37.JPG 變數
 import brandImg from '../assets/37.JPG';
 
 export const Home: React.FC = () => {
@@ -11,7 +10,6 @@ export const Home: React.FC = () => {
   const location = useLocation();
   const [renderKey, setRenderKey] = useState(0);
 
-  // 只要雜湊值一變，立刻強制把首頁刷新
   useEffect(() => {
     setRenderKey(prev => prev + 1);
   }, [location.hash]);
@@ -90,13 +88,12 @@ export const Home: React.FC = () => {
             viewport={{ once: true }}
             className="aspect-square bg-white rounded-[4rem] shadow-2xl border-8 border-white overflow-hidden flex items-center justify-center relative group"
           >
-            {/* 💡 修正後使用變數 brandImg 的乾淨寫法 */}
+        
             <img 
               src={brandImg} 
               alt="小浣熊頭像"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
               onError={(e) => {
-                // 防呆：如果 assets 裡找不到，自動去 public/37.JPG 撈
                 (e.target as HTMLImageElement).src = "./37.JPG";
               }}
             />
