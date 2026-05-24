@@ -19,6 +19,9 @@ export const Navigation: React.FC = () => {
     { path: '/contact', label: '聯絡琳琳' },
   ];
 
+  // 修正這裡：建立一個小工具，讓不論是標準路由還是 HashRouter 都能精確對齊目前的網址
+  const currentPath = location.hash ? location.hash.replace('#', '') : location.pathname;
+
   return (
     <nav className="fixed top-0 left-0 w-full h-20 z-[100] bg-white/40 backdrop-blur-md px-4 md:px-10 flex justify-between items-center border-b border-pink-100">
       <Link to="/" className="flex items-center gap-3 group">
@@ -45,17 +48,22 @@ export const Navigation: React.FC = () => {
       </Link>
       
       <div className="hidden md:flex gap-6 lg:gap-8 items-center">
-        {navLinks.map((link) => (
-          <Link 
-            key={link.path}
-            to={link.path} 
-            className={`font-bold transition-colors ${
-              location.pathname === link.path ? 'text-pink-500' : 'text-gray-500 hover:text-pink-400'
-            }`}
-          >
-            {link.label}
-          </Link>
-        ))}
+        {navLinks.map((link) => {
+          // 標準化比對路徑
+          const isActive = currentPath === link.path || (currentPath === '' && link.path === '/');
+          
+          return (
+            <Link 
+              key={link.path}
+              to={link.path} 
+              className={`font-bold transition-colors ${
+                isActive ? 'text-pink-500' : 'text-gray-500 hover:text-pink-400'
+              }`}
+            >
+              {link.label}
+            </Link>
+          );
+        })}
         <motion.div 
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
