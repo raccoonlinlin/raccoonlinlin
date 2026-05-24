@@ -1,21 +1,17 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
 import { useLocation } from 'react-router-dom';
-import { InteractiveText } from '../components/InteractiveText';
 import { SOCIALS } from '../constants';
 
-// 💡 修正核心：直接 import 圖片，讓 Vite 打包時能精確辨識路徑！
-// 請確保你的照片存放在 src/assets/ 資料夾底下，且檔名全為英文小寫
-import avatarImg from '../assets/raccoon-avatar.jpg';
+// 💡 雙重保險：如果你的 37.JPG 在 src/assets/ 資料夾
+import brandImg from '../assets/37.JPG';
 
 export const Home: React.FC = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const [renderKey, setRenderKey] = useState(0);
-  const { scrollY } = useScroll();
-  const decoY = useTransform(scrollY, [0, 500], [0, -100]);
 
-  // 核心修正：只要雜湊值一變，立刻強制把首頁刷新，確保導覽列順暢
+  // 只要雜湊值一變，立刻強制把首頁刷新，確保導覽列順暢
   useEffect(() => {
     setRenderKey(prev => prev + 1);
   }, [location.hash]);
@@ -41,7 +37,7 @@ export const Home: React.FC = () => {
                 <span className="text-pink-400 italic">小浣熊</span> 🎨
               </motion.h1>
               <p className="text-xl text-gray-600 font-medium leading-relaxed max-w-md">
-                這是琳琳最受歡迎的原創動畫角色。在繽紛的世界裡，小浣熊拿起了畫筆，將生活中的點滴化作絢麗的色彩，為你的每一天增添溫暖與想像。
+                這是琳琳最受歡迎的原創動畫角色。在繽紛的世界裡，小浣熊拿起了畫筆，將生活中的點滴化作絢麗的色彩，為你的每一天增添溫慢與想像。
               </p>
             </div>
 
@@ -94,14 +90,14 @@ export const Home: React.FC = () => {
             viewport={{ once: true }}
             className="aspect-square bg-white rounded-[4rem] shadow-2xl border-8 border-white overflow-hidden flex items-center justify-center relative group"
           >
-           
+            {/* 💡 修正後的核心圖片標籤 */}
             <img 
-              src={37.JPG} 
+              src={brandImg} 
               alt="小浣熊頭像"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
               onError={(e) => {
-             
-                (e.target as HTMLImageElement).src = "./raccoon-avatar.jpg";
+                // 防呆：如果 assets 內找不到，就自動改從 public/37.JPG 讀取路徑
+                (e.target as HTMLImageElement).src = "./37.JPG";
               }}
             />
             <div className="absolute inset-0 bg-pink-50 opacity-10 z-[11] pointer-events-none" />
@@ -132,7 +128,7 @@ export const Home: React.FC = () => {
                   品牌的靈魂
                 </h3>
                 <p>
-                  那隻可愛的小浣熊，用畫筆留下美好的世界。希望能透過 these 療癒的創作，在忙碌的世界裡為你留下一抹溫暖的顏色。
+                  那隻可愛的小浣熊，用畫筆留下美好的世界。希望能透過這些療癒的創作，在忙碌的世界裡為你留下一抹溫暖的顏色。
                 </p>
               </div>
             </div>
