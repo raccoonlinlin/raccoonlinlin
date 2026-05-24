@@ -72,8 +72,8 @@ export const BRAND_DATA: Product[] = [
     title: "手作聖誕掛飾", 
     price: "50", 
     description: "一年一度的聖誕節，一定要精心布置，Raccoonlinlin陪你一起度過聖誕節。",
-    tag: "43.JPG", 
-    media: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800", 
+    tag: "季節商品", 
+    media: "43.JPG", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "handmade" 
@@ -93,9 +93,9 @@ export const BRAND_DATA: Product[] = [
     price: "40", 
     description: "使用木材雷射切割，精準重現RACCOONLIN設計的插畫，極具質感。",
     tag: "限量商品", 
-    media: "https://images.unsplash.com/photo-1563220468-d06982848245?auto=format&fit=crop&q=80&w=800", 
+    media: "9.JPG", 
     type: "image", 
-    link: "9.JPG", 
+    link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "merch" 
   }
 ];
