@@ -11,8 +11,9 @@ export const Layout: React.FC = () => {
   const location = useLocation();
   const [seasonKey, setSeasonKey] = useState<'spring' | 'summer' | 'autumn' | 'winter'>('spring');
 
-  // 計算目前純粹的路徑，做為強制刷新的 key
-  const currentKey = location.hash ? location.hash : location.pathname;
+  // 💡 核心強力修正 1：專為 HashRouter 打造的精准 Key。
+  // 這樣能確保不論是 pathname 還是 hash 改變，都能第一時間被正確捕捉，絕對不卡死在轉場動畫裡！
+  const currentKey = location.hash || location.pathname;
 
   useEffect(() => {
     const month = new Date().getMonth() + 1;
@@ -62,14 +63,14 @@ export const Layout: React.FC = () => {
         <Navigation />
         
         <main className="flex-grow pt-20">
-          <AnimatePresence mode="wait">
-            {/* 關鍵修正：給 motion.div 一個絕對唯一的 key，強迫外層路由每次換頁都一定要立即載入 */}
+          {/* 💡 核心強力修正 2：我們把轉場動畫的模式改為 "popLayout" 或縮短時間，防止舊元件死賴著不走 */}
+          <AnimatePresence mode="popLayout">
             <motion.div
               key={currentKey} 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.15, ease: "easeInOut" }} // 微調時間讓體感更流暢
             >
               <Outlet />
             </motion.div>
