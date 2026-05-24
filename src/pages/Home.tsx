@@ -90,12 +90,10 @@ export const Home: React.FC = () => {
           >
         
             <img 
-              src={brandImg} 
+              src={37.JPG} 
               alt="小浣熊頭像"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = "./37.JPG";
-              }}
+            
             />
             <div className="absolute inset-0 bg-pink-50 opacity-10 z-[11] pointer-events-none" />
             <motion.div 
