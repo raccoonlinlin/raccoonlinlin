@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'motion/react';
 import { useLocation } from 'react-router-dom';
 import { SOCIALS } from '../constants';
 
+// 💡 嘗試從 assets 引入
 import brandImg from '../assets/37.JPG';
 
 export const Home: React.FC = () => {
@@ -88,12 +89,22 @@ export const Home: React.FC = () => {
             viewport={{ once: true }}
             className="aspect-square bg-white rounded-[4rem] shadow-2xl border-8 border-white overflow-hidden flex items-center justify-center relative group"
           >
-        
+            {/* 💡 修正：src 必須使用 brandImg 變數！並搭配多重防呆 onerror 尋找 public 目錄 */}
             <img 
-              src={37.JPG} 
+              src={brandImg} 
               alt="小浣熊頭像"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
-            
+              onError={(e) => {
+                const img = e.target as HTMLImageElement;
+                // 如果 assets 沒撈到，按順序嘗試：public/37.JPG -> public/37.jpg -> public/37.png
+                if (img.src.includes('brandImg') || img.src.includes('assets')) {
+                  img.src = "./37.JPG"; 
+                } else if (img.src.includes('37.JPG')) {
+                  img.src = "./37.jpg"; 
+                } else if (img.src.includes('37.jpg')) {
+                  img.src = "./37.png"; 
+                }
+              }}
             />
             <div className="absolute inset-0 bg-pink-50 opacity-10 z-[11] pointer-events-none" />
             <motion.div 
