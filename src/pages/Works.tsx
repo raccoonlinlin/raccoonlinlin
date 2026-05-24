@@ -7,18 +7,16 @@ export const Works: React.FC = () => {
   const location = useLocation();
   const [renderKey, setRenderKey] = useState(0);
 
-  // 核心修正：只要網址一變（不管點幾下），立刻強制把這個頁面更新，不讓 React 快取舊畫面！
   useEffect(() => {
     setRenderKey(prev => prev + 1);
   }, [location.pathname, location.hash]);
 
   return (
-    // 透過 key={renderKey}，強制點第一下時，整個頁面的資料就必須原地重寫跳出來
     <div key={renderKey} className="py-12 space-y-12">
       <ProductGrid 
         id="shop"
         data={BRAND_DATA} 
-        title="精選文創作品 (7-11 賣貨便)" 
+        title="賣貨便精選文創作品" 
         subtitle="Handcrafted Magic & Illustrations" 
       />
       
