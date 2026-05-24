@@ -28,7 +28,7 @@ export const Navigation: React.FC = () => {
           animate="visible"
           className="text-xl md:text-2xl font-black tracking-tighter text-gray-800"
         >
-          {"RACCOONLINLIN".split("").map((char, index) => (
+          {"RACCOONLINLIN浣熊琳琳".split("").map((char, index) => (
             <motion.span
               key={index}
               variants={{
