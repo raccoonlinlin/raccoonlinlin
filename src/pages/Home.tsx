@@ -88,7 +88,7 @@ export const Home: React.FC = () => {
           >
             {/* 💡 直接從根目錄讀取，並開啟大寫和小寫的防呆 onerror 機制 */}
             <img 
-              src="./37.JPG" 
+              src="37.JPG" 
               alt="小浣熊頭像"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
               onError={(e) => {
