@@ -196,7 +196,7 @@ export const SHOPEE_DATA: Product[] = [
 export const ANNOUNCEMENTS: Announcement[] = [
   { date: '2025.12.23', title: 'Memopresso相框活動', type: 'photo frame', location: '台灣各地據點', status: '進行中', url: 'https://creator.memopresso.com/raccoonlinlin' },
   { date: '2026.01.01', title: '7-11賣貨便', type: 'shop', location: '賣貨便', status: '進行中', url: 'https://myship.7-11.com.tw/general/detail/GM2504065791468' },
-  { date: '2026.02.01', title: '蝦皮賣場', type: 'shopee', location: '蝦皮賣場', status: '進行中', url: 'https://shopee.tw/aboo2019' }
+  { date: '2026.06.01', title: '蝦皮賣場', type: 'shopee', location: '蝦皮賣場', status: '進行中', url: 'https://shopee.tw/aboo2019' }
 ];
 
 export const SOCIALS = [
