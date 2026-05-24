@@ -1,11 +1,12 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { InteractiveText } from './InteractiveText';
 import { SEASONS } from '../constants';
 
 export const Navigation: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // 引入強跳轉工具
   const month = new Date().getMonth() + 1;
   const key = (month >= 3 && month <= 5) ? 'spring' : 
               (month >= 6 && month <= 8) ? 'summer' : 
@@ -19,8 +20,15 @@ export const Navigation: React.FC = () => {
     { path: '/contact', label: '聯絡琳琳' },
   ];
 
-  // 修正這裡：建立一個小工具，讓不論是標準路由還是 HashRouter 都能精確對齊目前的網址
   const currentPath = location.hash ? location.hash.replace('#', '') : location.pathname;
+
+  // 強力修正：點擊時如果發現是作品系列，強行執行路由更新
+  const handleNavClick = (path: string, e: React.MouseEvent) => {
+    if (path === '/works') {
+      e.preventDefault();
+      navigate('/works');
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 w-full h-20 z-[100] bg-white/40 backdrop-blur-md px-4 md:px-10 flex justify-between items-center border-b border-pink-100">
@@ -49,13 +57,13 @@ export const Navigation: React.FC = () => {
       
       <div className="hidden md:flex gap-6 lg:gap-8 items-center">
         {navLinks.map((link) => {
-          // 標準化比對路徑
           const isActive = currentPath === link.path || (currentPath === '' && link.path === '/');
           
           return (
             <Link 
               key={link.path}
               to={link.path} 
+              onClick={(e) => handleNavClick(link.path, e)} // 掛載強力點擊修正
               className={`font-bold transition-colors ${
                 isActive ? 'text-pink-500' : 'text-gray-500 hover:text-pink-400'
               }`}
@@ -74,7 +82,6 @@ export const Navigation: React.FC = () => {
         </motion.div>
       </div>
 
-      {/* Mobile Menu Icon (Placeholder for now) */}
       <div className="md:hidden text-2xl">☰</div>
     </nav>
   );
