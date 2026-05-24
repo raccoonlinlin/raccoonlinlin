@@ -13,17 +13,17 @@ export const BRAND_DATA: Product[] = [
     price: "130", 
     description: "柔軟棉繩手工編織，多色可選，展現個人獨特品味與手作溫度。",
     tag: "可客製化", 
-    media: "螺旋手機掛繩 直式.png", 
+    media: "17.png", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "handmade" 
   },
   { 
-    title: "雙色v字編織手腕帶", 
-    price: "130", 
-    description: "經典V字編織工法，雙色漸層設計，適合送禮或與好友成雙配戴。",
+    title: "雙色v字編織手腕帶組", 
+    price: "200", 
+    description: "經典V字編織工法，搭配同色系狗掌吊飾，適合送禮或與好友成雙配戴。",
     tag: "可客製化", 
-    media: "", 
+    media: "13.png", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "handmade" 
@@ -33,7 +33,7 @@ export const BRAND_DATA: Product[] = [
     price: "私訊報價", 
     description: "精緻小巧的編織物，適合婚禮伴手禮或企業活動小物，可依需求調整顏色。",
     tag: "少量起訂", 
-    media: "婚禮小物.PNG", 
+    media: "21.PNG", 
     type: "image", 
     link: "https://www.instagram.com/raccoonlinlin", 
     category: "handmade" 
@@ -43,7 +43,7 @@ export const BRAND_DATA: Product[] = [
     price: "40", 
     description: "使用木材雷射切割，精準重現RACCOONLIN設計的插畫，極具質感。",
     tag: "限量商品", 
-    media: "雷切小吊飾.jpg", 
+    media: "20.jpg", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "merch" 
@@ -53,7 +53,7 @@ export const BRAND_DATA: Product[] = [
     price: "80", 
     description: "可愛又實用的生活小物，可放手機.名片.明信片.偶像小卡等...。",
     tag: "限量商品", 
-    media: "蛋黃女孩手機支架.JPG", 
+    media: "25.JPG", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "merch" 
@@ -63,40 +63,40 @@ export const BRAND_DATA: Product[] = [
     price: "30", 
     description: "防水材質，適合貼在筆電、水壺等等，陪伴你的日常。",
     tag: "限量商品", 
-    media: "https://images.unsplash.com/photo-1572375927501-bc945c50c004?auto=format&fit=crop&q=80&w=800", 
+    media: "5.JPG", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "merch" 
   },
   { 
-    title: "浣熊春季野餐插畫", 
-    price: "作品展示", 
-    description: "琳琳精心繪製的節氣插畫，收錄在2025限量插畫集中心，溫暖療癒你的心。",
-    tag: "原創插畫", 
+    title: "手作聖誕掛飾", 
+    price: "50", 
+    description: "一年一度的聖誕節，一定要精心布置，Raccoonlinlin陪你一起度過聖誕節。",
+    tag: "43.JPG", 
     media: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=800", 
-    type: "image", 
-    link: "https://www.instagram.com/raccoonlinlin", 
-    category: "illustration" 
-  },
-  { 
-    title: "小浣熊倒垃圾動畫", 
-    price: "動態創作", 
-    description: "可愛爆棚的小動畫，紀錄了琳琳筆下浣熊勤奮（？）做家事的一面。",
-    tag: "短片動畫", 
-    media: "https://assets.mixkit.co/videos/preview/mixkit-girl-walking-with-shopping-bags-in-a-park-1200-large.mp4", 
-    type: "video", 
-    link: "https://www.youtube.com/@Raccoonlinlin%E6%B5%A3%E7%86%8A%E7%90%B3%E7%90%B3", 
-    category: "animation" 
-  },
-  { 
-    title: "棉線編織小花掛件", 
-    price: "60", 
-    description: "運用多種編織技法完成的小花作品，可作為鑰匙圈或包包掛飾，小巧精緻。",
-    tag: "手作限定", 
-    media: "https://images.unsplash.com/photo-1563220468-d06982848245?auto=format&fit=crop&q=80&w=800", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "handmade" 
+  },
+  { 
+    title: "似顏繪明信片", 
+    price: "客製化商品", 
+    description: "可愛繽紛線條感的似顏繪，可以多人畫在同一張，適合送禮紀念用。",
+    tag: "專屬卡片", 
+    media: "6.JPG", 
+    type: "image", 
+    link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
+    category: "postcard" 
+  },
+  { 
+    title: "原創雷切雙吊飾", 
+    price: "40", 
+    description: "使用木材雷射切割，精準重現RACCOONLIN設計的插畫，極具質感。",
+    tag: "限量商品", 
+    media: "https://images.unsplash.com/photo-1563220468-d06982848245?auto=format&fit=crop&q=80&w=800", 
+    type: "image", 
+    link: "9.JPG", 
+    category: "merch" 
   }
 ];
 
