@@ -13,27 +13,27 @@ export const BRAND_DATA: Product[] = [
     price: "130", 
     description: "柔軟棉繩手工編織，多色可選，展現個人獨特品味與手作溫度。",
     tag: "可客製化", 
-    media: "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?auto=format&fit=crop&q=80&w=800", 
+    media: "螺旋手機掛繩 直式.png", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "handmade" 
   },
   { 
-    title: "雙色v字編織手腕帶組", 
-    price: "200", 
+    title: "雙色v字編織手腕帶", 
+    price: "130", 
     description: "經典V字編織工法，雙色漸層設計，適合送禮或與好友成雙配戴。",
     tag: "可客製化", 
-    media: "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?auto=format&fit=crop&q=80&w=800", 
+    media: "", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "handmade" 
   },
   { 
-    title: "婚禮小物 - 編織掛件", 
+    title: "婚禮小物-愛心編織掛件", 
     price: "私訊報價", 
     description: "精緻小巧的編織物，適合婚禮伴手禮或企業活動小物，可依需求調整顏色。",
-    tag: "大量訂購", 
-    media: "https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?auto=format&fit=crop&q=80&w=800", 
+    tag: "少量起訂", 
+    media: "婚禮小物.PNG", 
     type: "image", 
     link: "https://www.instagram.com/raccoonlinlin", 
     category: "handmade" 
@@ -41,9 +41,9 @@ export const BRAND_DATA: Product[] = [
   { 
     title: "原創雷切吊飾", 
     price: "40", 
-    description: "使用壓克力或木材雷射切割，精準重現琳琳設計的浣熊圖樣，極具質感。",
+    description: "使用木材雷射切割，精準重現RACCOONLIN設計的插畫，極具質感。",
     tag: "限量商品", 
-    media: "https://images.unsplash.com/photo-1544465544-1b71aee9dfa3?auto=format&fit=crop&q=80&w=800", 
+    media: "雷切小吊飾.jpg", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "merch" 
@@ -51,9 +51,9 @@ export const BRAND_DATA: Product[] = [
   { 
     title: "原創手機支架", 
     price: "80", 
-    description: "可愛又實用的生活小物，穩定支撐你的手機，讓小浣熊每天陪你看劇。",
+    description: "可愛又實用的生活小物，可放手機.名片.明信片.偶像小卡等...。",
     tag: "限量商品", 
-    media: "https://images.unsplash.com/photo-1522273400909-fd1a8f77637e?auto=format&fit=crop&q=80&w=800", 
+    media: "蛋黃女孩手機支架.JPG", 
     type: "image", 
     link: "https://myship.7-11.com.tw/general/detail/GM2504065791468", 
     category: "merch" 
@@ -61,7 +61,7 @@ export const BRAND_DATA: Product[] = [
   { 
     title: "防水貼紙(多款)", 
     price: "30", 
-    description: "高品質防水霧面材質，適合貼在筆電、水壺、機車上，陪伴你的日常。",
+    description: "防水材質，適合貼在筆電、水壺等等，陪伴你的日常。",
     tag: "限量商品", 
     media: "https://images.unsplash.com/photo-1572375927501-bc945c50c004?auto=format&fit=crop&q=80&w=800", 
     type: "image", 
