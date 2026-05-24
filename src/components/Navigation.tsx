@@ -1,20 +1,18 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { SOCIALS } from '../constants'; // 確保引用路徑正確
 
 export const Navigation: React.FC = () => {
   const location = useLocation();
 
   const navLinks = [
-    { path: '/', label: '首頁' },
-    { path: '/works', label: '作品系列' },
-    { path: '/events', label: '最新活動' },
-    { path: '/contact', label: '聯絡琳琳' },
+    { path: '/', label: '首頁', isHash: false },
+    { path: '/works', label: '作品系列', isHash: true }, // 💡 標記作品系列走強跳轉
+    { path: '/events', label: '最新活動', isHash: false },
+    { path: '/contact', label: '聯絡琳琳', isHash: false },
   ];
 
-  // 精簡路徑判斷：直接拿 location.pathname 來比對，最精準不會出錯
-  const currentPath = location.pathname;
+  const currentPath = location.hash ? location.hash.replace('#', '') : location.pathname;
 
   return (
     <nav className="fixed top-0 left-0 w-full h-20 z-[100] bg-white/40 backdrop-blur-md px-4 md:px-10 flex justify-between items-center border-b border-pink-100">
@@ -43,14 +41,37 @@ export const Navigation: React.FC = () => {
       
       <div className="hidden md:flex gap-6 lg:gap-8 items-center">
         {navLinks.map((link) => {
-          const isActive = currentPath === link.path;
+          const isActive = currentPath === link.path || (currentPath === '' && link.path === '/');
           
+          // 💡 核心強力修正：如果是作品系列，直接用原生 <a> 標籤外掛重整網址，打破 React 卡頓
+          if (link.isHash) {
+            return (
+              <a 
+                key={link.path}
+                href={`#${link.path}`} // 強制帶入完整雜湊路徑，例如 #/works
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                  // 雙重保險：如果網址已經變了但畫面沒動，強制在 50 毫秒後驅動一次微更新
+                  setTimeout(() => {
+                    if(window.location.hash === '#/works' && !document.querySelector('.works-page-loaded')) {
+                       window.dispatchEvent(new HashChangeEvent('hashchange'));
+                    }
+                  }, 50);
+                }}
+                className={`font-bold transition-colors ${
+                  isActive ? 'text-pink-500' : 'text-gray-500 hover:text-pink-400'
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          }
+
+          // 其他原本就正常的按鈕維持 Link
           return (
             <Link 
               key={link.path}
               to={link.path} 
-              // 💡 移除原本會卡住的 handleNavClick，讓跳轉回歸原生順暢！
-              // 💡 附加優化：點擊任何分頁時，自動將網頁捲動回最上方
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
               className={`font-bold transition-colors ${
                 isActive ? 'text-pink-500' : 'text-gray-500 hover:text-pink-400'
