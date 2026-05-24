@@ -27,7 +27,8 @@ export const Layout: React.FC = () => {
     if (particlesContainer && particlesContainer.children.length === 0) {
       for (let i = 0; i < 15; i++) {
         const p = document.createElement('div');
-        p.className = 'particle fixed pointer-events-none z-[5]';
+        // 修正這裡：把原本的 z-[5] 改成了 z-[0]，讓圖示退到最底層背景
+        p.className = 'particle fixed pointer-events-none z-[0]';
         p.innerText = config.particles[Math.floor(Math.random() * config.particles.length)];
         p.style.left = Math.random() * 100 + 'vw';
         p.style.top = '-50px';
@@ -58,26 +59,32 @@ export const Layout: React.FC = () => {
   }, [location.pathname, location.hash]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    // 修正這裡：外層加上 z-[1] 相關設定，並在 main 與導覽列確保內容在前方
+    <div className="min-h-screen flex flex-col relative bg-[var(--bg)]">
       <CustomCursor />
-      <div id="particles-overlay" className="pointer-events-none fixed inset-0 overflow-hidden" />
-      <Navigation />
+      {/* 修正這裡：把容器層級調到最底部的 z-0 */}
+      <div id="particles-overlay" className="pointer-events-none fixed inset-0 overflow-hidden z-0" />
       
-      <main className="flex-grow pt-20">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.key}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Outlet />
-          </motion.div>
-        </AnimatePresence>
-      </main>
+      {/* 導覽列與主內容區塊全部加上 z-10，確保絕對壓在飄浮圖示上方 */}
+      <div className="relative z-10 flex flex-col min-h-screen">
+        <Navigation />
+        
+        <main className="flex-grow pt-20">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={location.key} // 這裡也幫你保留先前修正好的點一下秒開功能
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Outlet />
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-      <Footer />
+        <Footer />
+      </div>
     </div>
   );
 };
