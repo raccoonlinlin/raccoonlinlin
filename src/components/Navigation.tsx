@@ -6,12 +6,13 @@ export const Navigation: React.FC = () => {
   const location = useLocation();
 
   const navLinks = [
-    { path: '/', label: '首頁', isHash: false },
-    { path: '/works', label: '作品系列', isHash: true }, // 💡 標記作品系列走強跳轉
-    { path: '/events', label: '最新活動', isHash: false },
-    { path: '/contact', label: '聯絡琳琳', isHash: false },
+    { path: '/', label: '首頁' },
+    { path: '/works', label: '作品系列' },
+    { path: '/events', label: '最新活動' },
+    { path: '/contact', label: '聯絡琳琳' },
   ];
 
+  // 精準捕捉 HashRouter 的當前路徑
   const currentPath = location.hash ? location.hash.replace('#', '') : location.pathname;
 
   return (
@@ -43,31 +44,6 @@ export const Navigation: React.FC = () => {
         {navLinks.map((link) => {
           const isActive = currentPath === link.path || (currentPath === '' && link.path === '/');
           
-          // 💡 核心強力修正：如果是作品系列，直接用原生 <a> 標籤外掛重整網址，打破 React 卡頓
-          if (link.isHash) {
-            return (
-              <a 
-                key={link.path}
-                href={`#${link.path}`} // 強制帶入完整雜湊路徑，例如 #/works
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                  // 雙重保險：如果網址已經變了但畫面沒動，強制在 50 毫秒後驅動一次微更新
-                  setTimeout(() => {
-                    if(window.location.hash === '#/works' && !document.querySelector('.works-page-loaded')) {
-                       window.dispatchEvent(new HashChangeEvent('hashchange'));
-                    }
-                  }, 50);
-                }}
-                className={`font-bold transition-colors ${
-                  isActive ? 'text-pink-500' : 'text-gray-500 hover:text-pink-400'
-                }`}
-              >
-                {link.label}
-              </a>
-            );
-          }
-
-          // 其他原本就正常的按鈕維持 Link
           return (
             <Link 
               key={link.path}
