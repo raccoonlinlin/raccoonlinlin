@@ -35,7 +35,7 @@ export const Home: React.FC = () => {
 
             <div className="flex flex-wrap gap-4 mt-4">
               <div className="px-8 py-3 bg-white rounded-2xl shadow-sm border border-pink-100 text-pink-500 font-bold">
-                #療癒系動畫
+                #療癒系插畫
               </div>
               <div className="px-8 py-3 bg-white rounded-2xl shadow-sm border border-pink-100 text-pink-500 font-bold">
                 #原創角色
@@ -104,10 +104,10 @@ export const Home: React.FC = () => {
             
             <div className="space-y-6 text-xl text-gray-600 leading-relaxed font-medium">
               <p>
-                浣熊琳琳是一個起源於創作者對生活細節觀察的插畫品牌。我們相信，生活中的每一個小瞬間都值得被溫柔紀錄，每一種情緒都能透過色彩找到出口。
+                RACCOONLINLIN是一個喜歡紀錄生活的插畫品牌。我相信，生活中的每一個小瞬間都值得被溫柔紀錄，每一種情緒都能透過色彩找到出口。
               </p>
               <p>
-                從第一支畫筆到現在豐富的文創周邊，琳琳始終堅持用手作的溫度連結每顆心。不論是編織手腕帶還是原創插畫，每一件作品都是一段獨一無二的故事。
+                從第一支畫筆到現在豐富的文創周邊，浣熊始終堅持有溫度插畫連結每顆心。不論是編織手腕帶還是原創插畫周邊，每一件作品都是獨一無二的。
               </p>
               <div className="pt-4">
                 <h3 className="text-2xl font-black text-gray-900 mb-4 flex items-center gap-2">
@@ -115,7 +115,7 @@ export const Home: React.FC = () => {
                   品牌的靈魂
                 </h3>
                 <p>
-                  那隻愛乾淨的小浣熊，象徵著我們清掃煩惱、留下美好的願望。我們希望能透過這些療癒的創作，在忙碌的世界裡為你留下一抹溫緩的眼色。
+                  那隻可愛的小浣熊，用畫筆留下美好的世界。希望能透過這些療癒的創作，在忙碌的世界裡為你留下一抹溫暖的顏色。
                 </p>
               </div>
             </div>
