@@ -166,27 +166,27 @@ export const SHOPEE_DATA: Product[] = [
     price: "", 
     description: "高質感透明胸針夾子組，適合當辦公室小物",
     tag: "限量商品", 
-    media: "https://images.unsplash.com/photo-1627192765332-21a4fddd43e3?auto=format&fit=crop&q=80&w=800", 
+    media: "51.PNG", 
     type: "image", 
     link: "https://shopee.tw/aboo2019", 
     category: "merch" 
   },
   { 
-    title: "手工編織鑰匙圈", 
-    price: "90", 
-    description: "多種顏色棉繩編織而成，耐用且獨特，隨身掛上一份琳琳的手作溫暖。",
-    tag: "加價購首選", 
-    media: "https://images.unsplash.com/photo-1582142839970-2b9e04b60f65?auto=format&fit=crop&q=80&w=800", 
+    title: "搖搖吊飾", 
+    price: "", 
+    description: "多種壓克力片放在透明袋，繽紛可愛的內容物，超適合愛色彩的人",
+    tag: "限量商品", 
+    media: "54.png", 
     type: "image", 
     link: "https://shopee.tw/aboo2019", 
     category: "handmade" 
   },
   { 
-    title: "浣熊2026曆卡組", 
-    price: "220", 
-    description: "12個月份的精緻插畫曆卡，附木製底座，讓小浣熊陪你度過精彩的一年。",
-    tag: "年度限定", 
-    media: "https://images.unsplash.com/photo-1506784919141-93504993e36c?auto=format&fit=crop&q=80&w=800", 
+    title: "原創雷切雙吊飾", 
+    price: "", 
+    description: "使用木材雷射切割，精準重現RACCOONLIN設計的插畫，極具質感。",
+    tag: "限量商品", 
+    media: "9.JPG", 
     type: "image", 
     link: "https://shopee.tw/aboo2019", 
     category: "merch" 
@@ -196,7 +196,7 @@ export const SHOPEE_DATA: Product[] = [
 export const ANNOUNCEMENTS: Announcement[] = [
   { date: '2025.12.23', title: 'Memopresso相框活動', type: 'photo frame', location: '台灣各地據點', status: '進行中', url: 'https://creator.memopresso.com/raccoonlinlin' },
   { date: '2026.01.01', title: '7-11賣貨便', type: 'shop', location: '賣貨便', status: '進行中', url: 'https://myship.7-11.com.tw/general/detail/GM2504065791468' },
-  { date: '2026.02.01', title: '蝦皮賣場', type: 'shopee', location: '蝦皮賣場', status: '準備中', url: 'https://shopee.tw/aboo2019' }
+  { date: '2026.02.01', title: '蝦皮賣場', type: 'shopee', location: '蝦皮賣場', status: '進行中', url: 'https://shopee.tw/aboo2019' }
 ];
 
 export const SOCIALS = [
