@@ -66,7 +66,7 @@ export const Layout: React.FC = () => {
       <main className="flex-grow pt-20">
         <AnimatePresence mode="wait">
           <motion.div
-            key={location.pathname}
+            key={location.key}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
