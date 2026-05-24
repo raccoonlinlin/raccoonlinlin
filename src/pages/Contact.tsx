@@ -22,7 +22,7 @@ export const Contact: React.FC = () => {
               <div className="w-12 h-12 bg-pink-50 rounded-2xl flex items-center justify-center text-xl text-pink-500 font-bold">📧</div>
               <div>
                 <p className="text-[10px] font-black uppercase text-gray-400">Electronic Mail</p>
-                <p className="font-bold text-gray-800">lily228514@gmail.com</p>
+                <p className="font-bold text-gray-800">raccoonlinlin20010119@gmail.com</p>
               </div>
             </div>
             <div className="flex items-center gap-4">
