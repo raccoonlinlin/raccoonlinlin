@@ -59,8 +59,7 @@ const ProductCard: React.FC<{ product: Product; index: number }> = ({ product, i
     <motion.div
       layout
       initial={{ opacity: 0, y: 30, scale: 0.9 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-50px" }}
+      animate={{ opacity: 1, y: 0, scale: 1 }} // 這裡已修正：改用 animate 讓頁面載入時直接顯示
       transition={{ 
         duration: 0.6, 
         delay: (index % 3) * 0.1,
