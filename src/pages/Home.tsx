@@ -81,7 +81,7 @@ export const Home: React.FC = () => {
             className="aspect-square bg-white rounded-[4rem] shadow-2xl border-8 border-white overflow-hidden flex items-center justify-center relative group"
           >
             <img 
-              src="https://images.unsplash.com/photo-1513364235739-19a441f4b307?auto=format&fit=crop&q=80&w=1000" 
+              src="raccoonlinlin頭像.JPG" 
               alt="Brand Story"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
             />
