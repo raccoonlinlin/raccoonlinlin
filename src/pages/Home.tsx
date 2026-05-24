@@ -31,11 +31,10 @@ export const Home: React.FC = () => {
             viewport={{ once: true }}
             className="aspect-square bg-white rounded-[4rem] shadow-2xl border-8 border-white overflow-hidden flex items-center justify-center relative group"
           >
-            {/* 修正這裡：把檔名換成重新命名後的英文小寫檔名 */}
-            {/* 修正這裡：src 換成 import 進來的變數名稱 avatarImg */}
+
             <img 
-              src="raccoonlinlin頭像.JPG" 
-              src={raccoonlinlin頭像.JPG} 
+              src="37.JPG" 
+    
               alt="小浣熊頭像"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
               onError={(e) => {
