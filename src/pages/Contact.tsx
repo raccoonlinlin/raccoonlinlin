@@ -1,8 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { InteractiveText } from '../components/InteractiveText';
 
 export const Contact: React.FC = () => {
+  // 💡 狀態管理：成功送出表單後顯示感謝文字
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // 🛠️ 填入你在 Formspree 申請到的專屬網址
+  const FORMSPREE_URL = "把你在Formspree複製的網址貼到這裡"; 
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.currentTarget);
+
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        alert('糟糕，傳送失敗，請稍後再試，或直接透過 Instagram 聯絡琳琳！');
+      }
+    } catch (error) {
+      alert('網路連線似乎有點問題，請稍後再試！');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-24 space-y-16">
       <div className="text-center space-y-4">
@@ -36,18 +67,55 @@ export const Contact: React.FC = () => {
         </div>
 
         <div className="space-y-6">
-          <div className="grid grid-cols-1 gap-4">
-            <input type="text" placeholder="您的姓名" className="px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-pink-300 outline-none font-medium" />
-            <input type="email" placeholder="電子郵件" className="px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-pink-300 outline-none font-medium" />
-            <textarea placeholder="留言內容..." rows={4} className="px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-pink-300 outline-none font-medium resize-none"></textarea>
-            <motion.button 
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="w-full py-5 rounded-2xl bg-gray-900 text-white font-black shadow-xl hover:shadow-2xl transition-all"
+          {isSubmitted ? (
+            // ✨ 送出成功後顯示的可愛畫面
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="h-full flex flex-col items-center justify-center text-center p-8 bg-pink-50 rounded-3xl border border-pink-100 space-y-4"
             >
-              送出訊息 🐾
-            </motion.button>
-          </div>
+              <div className="text-5xl">🎉</div>
+              <h4 className="text-2xl font-black text-gray-900">訊息已成功送出！</h4>
+              <p className="text-gray-600 font-medium">謝謝你的留言，琳琳收到後會盡快回信給你唷！🐾</p>
+            </motion.div>
+          ) : (
+            // 💡 表單本體，加上 onSubmit 監聽和 input 的 name 屬性
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+              <input 
+                type="text" 
+                name="name" // Formspree 辨識用的欄位名稱
+                required
+                placeholder="您的姓名" 
+                className="px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-pink-300 outline-none font-medium" 
+              />
+              <input 
+                type="email" 
+                name="email" // Formspree 辨識用的欄位名稱
+                required
+                placeholder="電子郵件" 
+                className="px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-pink-300 outline-none font-medium" 
+              />
+              <textarea 
+                name="message" // Formspree 辨識用的欄位名稱
+                required
+                placeholder="留言內容..." 
+                rows={4} 
+                className="px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-pink-300 outline-none font-medium resize-none"
+              ></textarea>
+              
+              <motion.button 
+                type="submit" // 確保按鈕類型是 submit
+                disabled={isSubmitting}
+                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                className={`w-full py-5 rounded-2xl font-black shadow-xl hover:shadow-2xl transition-all text-white ${
+                  isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'
+                }`}
+              >
+                {isSubmitting ? '傳送中... 🐾' : '送出訊息 🐾'}
+              </motion.button>
+            </form>
+          )}
         </div>
       </div>
     </div>
