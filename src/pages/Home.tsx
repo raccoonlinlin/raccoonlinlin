@@ -10,7 +10,6 @@ export const Home: React.FC = () => {
 
   return (
     <>
-      {/* Hero Section - Now at the Top */}
       <header ref={heroRef} className="relative min-h-screen flex items-center justify-center -mt-20 px-8 max-w-7xl mx-auto overflow-hidden">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20 w-full">
           <div className="w-full lg:w-1/2 flex flex-col justify-center gap-8 py-12 order-1">
@@ -73,7 +72,6 @@ export const Home: React.FC = () => {
         </div>
       </header>
 
-      {/* Brand Story Section */}
       <section id="story" className="max-w-6xl mx-auto px-6 py-24 border-b border-pink-50 flex items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <motion.div 
@@ -115,7 +113,7 @@ export const Home: React.FC = () => {
                   品牌的靈魂
                 </h3>
                 <p>
-                  那隻可愛的小浣熊，用畫筆留下美好的世界。希望能透過這些療癒的創作，在忙碌的世界裡為你留下一抹溫暖的顏色。
+                  那隻可愛的小浣熊，用畫筆留下美好的世界。希望能透過這些療癒的創作，在忙碌的世界裡為你留下一抹溫溫暖的顏色。
                 </p>
               </div>
             </div>
@@ -123,8 +121,6 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-
-      {/* Social Hub */}
       <section className="py-32 bg-white/50 border-y border-pink-50">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col lg:flex-row gap-16 items-center mb-32">
@@ -159,24 +155,7 @@ export const Home: React.FC = () => {
             {SOCIALS.map((s, idx) => (
               <motion.a 
                 key={idx}
-                whileHover={{ y: -10, scale: 1.02 }}
-                href={s.link} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className={`p-8 rounded-[3rem] flex flex-col items-center gap-4 border transition-all shadow-sm hover:shadow-xl ${idx === 3 ? 'bg-pink-400 border-transparent text-white' : 'bg-white border-pink-50 text-gray-900'}`}
-              >
-                <div className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl ${idx === 3 ? 'bg-white/20' : 'bg-pink-50'}`}>
-                  {idx === 0 ? '📸' : idx === 1 ? '🎨' : idx === 2 ? '🧵' : '✨'}
-                </div>
-                <div className="text-center">
-                  <span className={`block text-[10px] font-black uppercase tracking-widest ${idx === 3 ? 'text-white/80' : 'text-gray-400'}`}>{s.name}</span>
-                  <span className={`text-sm font-bold ${idx === 3 ? 'text-white' : 'text-gray-600'}`}>{s.label}</span>
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        </div>
-      </section>
+                whileHover={{ y: -10,
     </>
   );
 };
