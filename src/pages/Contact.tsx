@@ -8,14 +8,14 @@ export const Contact: React.FC = () => {
   // 💡 建立一個表單的指針，用來直接抓取輸入框裡的值
   const formRef = useRef<HTMLFormElement>(null);
 
-  // 🛠️ 填入你在 Formspree 申請到的專屬網址
-  const FORMSPREE_URL = "https://formspree.io/f/你的Formspree英文代碼"; 
+  // 🛠️ 填入你在 Formspree 申請到的專屬完整網址（記得要保留雙引號喔！）
+  const FORMSPREE_URL = "這裡換成你在Formspree複製的完整網址"; 
 
   // 核心發送邏輯
   const sendData = async () => {
     if (!formRef.current) return;
 
-    // 檢查表單有沒有漏填
+    // 檢查表單有沒有漏填（例如信箱格式對不對、有沒有空著）
     if (!formRef.current.checkValidity()) {
       formRef.current.reportValidity();
       return;
@@ -34,7 +34,7 @@ export const Contact: React.FC = () => {
       if (response.ok) {
         setIsSubmitted(true);
       } else {
-        alert('糟糕，傳送失敗，請稍後再試，或直接透過 Instagram 聯絡琳琳！🐾');
+        alert('Formspree 拒絕了發送。請確認你是否已經去 Gmail 信箱點擊驗證信開通表單，或者網址填寫錯誤！🐾');
       }
     } catch (error) {
       alert('網路連線似乎有點問題，請稍後再試！');
@@ -45,12 +45,14 @@ export const Contact: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-24 space-y-16 relative z-10">
+      {/* 頁面標題 */}
       <div className="text-center space-y-4">
         <h1 className="text-5xl md:text-7xl font-black text-black">聯絡琳琳</h1>
         <p className="text-gray-400 font-medium tracking-widest uppercase text-xs">Get in Touch</p>
         <div className="h-1.5 w-24 mx-auto rounded-full bg-pink-400" />
       </div>
 
+      {/* 內容區塊 */}
       <div className="bg-white rounded-[4rem] shadow-2xl p-12 border border-pink-50 grid grid-cols-1 md:grid-cols-2 gap-12">
         <div className="space-y-8">
           <h3 className="text-3xl font-black text-gray-900">想聊聊嗎？</h3>
@@ -75,6 +77,7 @@ export const Contact: React.FC = () => {
           </div>
         </div>
 
+        {/* 右側表單區塊 */}
         <div className="space-y-6 relative z-50">
           {isSubmitted ? (
             <motion.div 
@@ -111,12 +114,12 @@ export const Contact: React.FC = () => {
               ></textarea>
               
               <motion.button 
-                type="button" // 💡 改變策略：改成一般 button，改用 onClick 觸發
+                type="button" 
                 disabled={isSubmitting}
                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
                 onClick={(e) => {
-                  e.stopPropagation(); // 💡 核心修正：阻止事件向上冒泡，不讓外層隱形區塊干擾
+                  e.stopPropagation(); // 阻止外層可能存在的隱形元件干擾點擊
                   sendData();
                 }}
                 className={`w-full py-5 rounded-2xl font-black shadow-xl hover:shadow-2xl transition-all text-white pointer-events-auto cursor-pointer relative z-[999] ${
