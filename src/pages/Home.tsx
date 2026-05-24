@@ -82,7 +82,7 @@ export const Home: React.FC = () => {
           >
             <img 
               src="raccoonlinlin頭像.JPG" 
-              alt="Brand Story"
+              alt="raccoonlinlin頭像.JPG"
               className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-pink-50 opacity-10 z-[11] pointer-events-none" />
