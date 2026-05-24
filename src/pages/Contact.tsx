@@ -1,19 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'motion/react';
 
 export const Contact: React.FC = () => {
-  // 💡 狀態管理：成功送出表單後顯示感謝文字
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // 💡 建立一個表單的指針，用來直接抓取輸入框裡的值
+  const formRef = useRef<HTMLFormElement>(null);
+
   // 🛠️ 填入你在 Formspree 申請到的專屬網址
-  const FORMSPREE_URL = "把你在Formspree複製的網址貼到這裡"; 
+  const FORMSPREE_URL = "https://formspree.io/f/你的Formspree英文代碼"; 
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // 核心發送邏輯
+  const sendData = async () => {
+    if (!formRef.current) return;
+
+    // 檢查表單有沒有漏填
+    if (!formRef.current.checkValidity()) {
+      formRef.current.reportValidity();
+      return;
+    }
+
     setIsSubmitting(true);
-
-    const formData = new FormData(e.currentTarget);
+    const formData = new FormData(formRef.current);
 
     try {
       const response = await fetch(FORMSPREE_URL, {
@@ -25,7 +34,7 @@ export const Contact: React.FC = () => {
       if (response.ok) {
         setIsSubmitted(true);
       } else {
-        alert('糟糕，傳送失敗，請稍後再試，或直接透過 Instagram 聯絡琳琳！');
+        alert('糟糕，傳送失敗，請稍後再試，或直接透過 Instagram 聯絡琳琳！🐾');
       }
     } catch (error) {
       alert('網路連線似乎有點問題，請稍後再試！');
@@ -35,7 +44,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-24 space-y-16">
+    <div className="max-w-4xl mx-auto px-6 py-24 space-y-16 relative z-10">
       <div className="text-center space-y-4">
         <h1 className="text-5xl md:text-7xl font-black text-black">聯絡琳琳</h1>
         <p className="text-gray-400 font-medium tracking-widest uppercase text-xs">Get in Touch</p>
@@ -66,9 +75,8 @@ export const Contact: React.FC = () => {
           </div>
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-6 relative z-50">
           {isSubmitted ? (
-            // ✨ 送出成功後顯示的可愛畫面
             <motion.div 
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -79,24 +87,23 @@ export const Contact: React.FC = () => {
               <p className="text-gray-600 font-medium">謝謝你的留言，琳琳收到後會盡快回信給你唷！🐾</p>
             </motion.div>
           ) : (
-            // 💡 表單本體，加上 onSubmit 監聽和 input 的 name 屬性
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-4">
+            <form ref={formRef} onSubmit={(e) => e.preventDefault()} className="grid grid-cols-1 gap-4">
               <input 
                 type="text" 
-                name="name" // Formspree 辨識用的欄位名稱
+                name="name" 
                 required
                 placeholder="您的姓名" 
                 className="px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-pink-300 outline-none font-medium" 
               />
               <input 
                 type="email" 
-                name="email" // Formspree 辨識用的欄位名稱
+                name="email" 
                 required
                 placeholder="電子郵件" 
                 className="px-6 py-4 rounded-2xl bg-gray-50 border-none focus:ring-2 focus:ring-pink-300 outline-none font-medium" 
               />
               <textarea 
-                name="message" // Formspree 辨識用的欄位名稱
+                name="message" 
                 required
                 placeholder="留言內容..." 
                 rows={4} 
@@ -104,11 +111,15 @@ export const Contact: React.FC = () => {
               ></textarea>
               
               <motion.button 
-                type="submit" // 確保按鈕類型是 submit
+                type="button" // 💡 改變策略：改成一般 button，改用 onClick 觸發
                 disabled={isSubmitting}
                 whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
                 whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-                className={`w-full py-5 rounded-2xl font-black shadow-xl hover:shadow-2xl transition-all text-white ${
+                onClick={(e) => {
+                  e.stopPropagation(); // 💡 核心修正：阻止事件向上冒泡，不讓外層隱形區塊干擾
+                  sendData();
+                }}
+                className={`w-full py-5 rounded-2xl font-black shadow-xl hover:shadow-2xl transition-all text-white pointer-events-auto cursor-pointer relative z-[999] ${
                   isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-900'
                 }`}
               >
